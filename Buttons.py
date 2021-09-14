@@ -1,4 +1,5 @@
 import pygame, sys
+
 class Button:
     def __init__(self,text,width,height,pos,elevation):
         # Core attributes
@@ -35,7 +36,7 @@ class Button:
             else:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
-                    how = True
+                    quit = True
                     self.pressed = False
         else:
             self.dynamic_elevation = self.elevation
@@ -44,18 +45,29 @@ pygame.init()
 sw = 500
 sh = 500
 screen = pygame.display.set_mode((sw,sh))
-pygame.display.set_caption('Gui menu')
+pygame.display.set_caption('Main Menu')
 clock = pygame.time.Clock()
 gui_font = pygame.font.Font(None,30)
 
-button1 = Button('Click me',200,40,(200,250),6)
+background = pygame.transform.scale2x(pygame.image.load("./Assets/Levels_and_backgrounds/Main_menu_backgound.png"))
+
+button1 = Button('Quit',200,40,(25,450),6)
+button2 = Button('Credits',200,40,(25,350),6)
+button3 = Button('How To Play',200,40,(275,450),6)
+button4 = Button('Play',200,40,(275,350),6)
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    screen.fill('#DCDDD8')
+
+    screen.blit(background,(0,0))            
+
     button1.draw()
-    pygame.display.update()
+    button2.draw()
+    button3.draw()
+    button4.draw()
+
+    pygame.display.flip()
     clock.tick(60)
