@@ -1,5 +1,8 @@
 import pygame, sys, turtle, random
 from pygame import KEYDOWN
+from Credits_button import credits
+from Howtoplay_button import how
+from Play_button import play
 
 from pygame.constants import K_DOWN, K_LEFT, K_RIGHT, K_UP, K_a, K_d, K_s, K_w
 
