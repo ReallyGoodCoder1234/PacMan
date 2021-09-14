@@ -48,7 +48,7 @@ pygame.display.set_caption('Gui menu')
 clock = pygame.time.Clock()
 gui_font = pygame.font.Font(None,30)
 
-button1 = Button('Click me',200,40,(200,250),6)
+button1 = Button('Click me',200,40,(250,250),6)
 
 while True:
     for event in pygame.event.get():

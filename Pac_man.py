@@ -25,7 +25,7 @@ pygame.init()
 
 # Pac man
 #pac_man_surface = pygame.image.load("./Assets/Sprites/Pac_mans/Left_open.png").convert_alpha()
-#pac_man_rect = pac_man_surface.get_rect()
+pac_man_rect = pac_man_surface.get_rect()
 
 sw = 1427
 sh = 598
@@ -39,7 +39,5 @@ while True:
         elif event.type == pygame.KEYDOWN:
             move_pacman()
 
-    screen.fill((255, 255, 255))
-    #screen.blit(pac_man_surface,(200,200))
-    
+    screen.blit(pac_man_surface,(200,200))
     pygame.display.flip()
