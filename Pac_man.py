@@ -51,13 +51,15 @@ all_sprites = pygame.sprite.Group()
 ADDGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDGHOST, 1200)
 
+sw = 1427
+sh = 598
+screen = pygame.display.set_mode((sw,sh))
+
 # Pac man
 pac_man_surface = pygame.image.load("./Assets/Sprites/Pac_mans/Left_open.png").convert_alpha()
 pac_man_rect = pac_man_surface.get_rect()
 
-sw = 1427
-sh = 598
-screen = pygame.display.set_mode((sw,sh))
+
 
 while True:
     for event in pygame.event.get():
