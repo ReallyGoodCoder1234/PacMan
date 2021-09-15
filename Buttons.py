@@ -2,6 +2,7 @@ import pygame, sys
 
 class Button:
     def __init__(self,text,width,height,pos,elevation):
+        gui_font = pygame.font.Font(None,30)
         # Core attributes
         self.pressed = False
         self.elevation = elevation
@@ -16,7 +17,8 @@ class Button:
         # Text
         self.text_surf = gui_font.render(text,True,'#FFFFFF')
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
-    def draw(self):
+
+    def draw(self,screen):
         # Elevation logic
         self.top_rect.y = self.original_y_pos - self.dynamic_elevation
         self.text_rect.center = self.top_rect.center
@@ -36,38 +38,7 @@ class Button:
             else:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
-                    quit = True
                     self.pressed = False
         else:
             self.dynamic_elevation = self.elevation
             self.top_colour = '#475F77'
-pygame.init()
-sw = 500
-sh = 500
-screen = pygame.display.set_mode((sw,sh))
-pygame.display.set_caption('Main Menu')
-clock = pygame.time.Clock()
-gui_font = pygame.font.Font(None,30)
-
-background = pygame.transform.scale2x(pygame.image.load("./Assets/Levels_and_backgrounds/Main_menu_backgound.png"))
-
-button1 = Button('Quit',200,40,(25,450),6)
-button2 = Button('Credits',200,40,(25,350),6)
-button3 = Button('How To Play',200,40,(275,450),6)
-button4 = Button('Play',200,40,(275,350),6)
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    screen.blit(background,(0,0))            
-
-    button1.draw()
-    button2.draw()
-    button3.draw()
-    button4.draw()
-
-    pygame.display.flip()
-    clock.tick(60)

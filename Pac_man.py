@@ -54,51 +54,66 @@ pygame.time.set_timer(RELEASEGHOST, 5500)
 
 pygame.display.set_caption('Main Menu')
 
+sw = 500
+sh = 500
+screen = pygame.display.set_mode((sw,sh))
+
 # Pac man
 pac_man_surface = pygame.image.load("./Assets/Sprites/Pac_mans/Left_open.png").convert_alpha()
 pac_man_rect = pac_man_surface.get_rect()
 
-sw = 1428
-sh = 598
-screen = pygame.dislpay.set_mode((sw,sh))
+
 
 # Game Variables
 ghost_amount = 0
 ghost_colours = []
 
 # Buttons
-button1 = Button('Quit',200,40,(25,450),6)
-button2 = Button('Credits',200,40,(25,350),6)
-button3 = Button('How To Play',200,40,(275,450),6)
-button4 = Button('Play',200,40,(275,350),6)
+quit_button = Button('Quit',200,40,(25,450),6)
+credits_button = Button('Credits',200,40,(25,350),6)
+how_button = Button('How To Play',200,40,(275,450),6)
+play_button = Button('Play',200,40,(275,350),6)
+
+# Backgrounds
+main_menu_background = pygame.transform.scale2x(pygame.image.load("./Assets/Levels_and_backgrounds/Main_menu_backgound.png"))
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or quit == True:
-            pygame.quit()
-            sys.exit()
-        elif play == True:
-            if event.type == pygame.KEYDOWN:
-                move_pacman(pac_man_surface)
-            elif event.type == ADDGHOST:
-                if ghost_amount < 4:
-                    ghost = Ghost()
-                    all_sprites.add(ghost)
-                ghost_amount += 1
-            elif event.type == RELEASEGHOST:
-                release_ghost()
+        if event.type == pygame.QUIT or quit_button.pressed == True:
+           print("quit") 
+           pygame.quit()
+           sys.exit()
+        elif play_button.pressed == True:
+            sw = 1428 
+            sh = 598
+            screen = pygame.display.set_mode((sw,sh))
+        else:
+            screen.blit(main_menu_background,(0,0))
+            quit_button.draw(screen)
+            credits_button.draw(screen)
+            how_button.draw(screen)
+            play_button.draw(screen)
+        #if event.type == pygame.KEYDOWN:
+        #    move_pacman(pac_man_surface)
+        #elif event.type == ADDGHOST:
+           # if ghost_amount < 4:
+          #      ghost = Ghost()
+         #       all_sprites.add(ghost)
+        #    ghost_amount += 1
+       # elif event.type == RELEASEGHOST:
+      #      release_ghost()
+    
 
-    button1.draw()
-    button2.draw()
-    button3.draw()
-    button4.draw()
 
     # Fill screen with black
-    screen.fill((0, 0, 0))
-
-    screen.blit(pac_man_surface,(200,200))
+    screen.blit(main_menu_background,(0,0))
+    quit_button.draw(screen)
+    credits_button.draw(screen)
+    how_button.draw(screen)
+    play_button.draw(screen)
+    #screen.blit(pac_man_surface,(200,200))
     # Draw all ghosts
-    for entity in all_sprites:
-        screen.blit(entity.surf, entity.rect)
+    #for entity in all_sprites:
+     #   screen.blit(entity.surf, entity.rect)
     
     pygame.display.flip()
