@@ -1,9 +1,10 @@
 import pygame, sys
 
 class Button:
-    def __init__(self,text,width,height,pos,elevation):
+    def __init__(self,text,width,height,pos,elevation, event):
         gui_font = pygame.font.Font(None,30)
         # Core attributes
+        self.event = event
         self.pressed = False
         self.elevation = elevation
         self.dynamic_elevation = elevation
@@ -35,6 +36,7 @@ class Button:
             if pygame.mouse.get_pressed()[0] == True:
                 self.dynamic_elevation = 0
                 self.pressed = True
+                self.event()
             else:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
