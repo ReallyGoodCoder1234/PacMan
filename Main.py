@@ -17,14 +17,13 @@ sw = 500
 sh = 500
 screen = pygame.display.set_mode((sw,sh))
 
-ghost_manager = GhostManager()
-all_ghosts =ghost_manager.ghosts
+ghost_manager = GhostManager(sh, sw)
+all_ghosts = ghost_manager.ghosts
 
 ADDGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDGHOST, 1200)
 RELEASEGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(RELEASEGHOST, 5500)
-
 
 # Pac man
 pac_man_surface = pygame.image.load("./Assets/Sprites/Pac_mans/Left_open.png").convert_alpha()
@@ -69,6 +68,8 @@ while True:
         elif event.type == ADDGHOST and screenType == ScreenType.Play:
             ghost_manager.createGhost()
 
+    screen.fill((0, 0, 0))
+
     # Draw different screen based on the current screen type
     if (screenType == ScreenType.Main):
         screen.blit(main_menu_background,(0,0))
@@ -77,7 +78,6 @@ while True:
         how_button.draw(screen)
         play_button.draw(screen)
     elif (screenType == ScreenType.Play):
-        print("screen is play")
         sw = 1428 
         sh = 598
         screen = pygame.display.set_mode((sw,sh))
@@ -85,6 +85,9 @@ while True:
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
+
+        all_ghosts.update()
+
     elif (screenType == ScreenType.How):
         how_text_level_1 = gui_font.render('To play press arrow keys:', True)
         how_text_level_2 = gui_font.render('Right key makes you move right,', True)

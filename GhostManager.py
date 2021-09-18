@@ -2,19 +2,28 @@ import pygame, random
 from Ghost import Ghost
 
 class GhostManager(pygame.sprite.Sprite):
-    ghost_names = []
-    ghosts = []
+    name_list = ["Blue", "Grey", "Orange", "Pink", "Red", "White"]
+    ghosts = pygame.sprite.Group()
 
-    def __init__(self):
+    def __init__(self, maxHeight, maxWidth):
         super().__init__()
+        self.maxHeight = maxHeight
+        self.maxWidth = maxWidth
 
     def createGhost(self):
         # only create max to 4 ghosts
-        if len(self.ghosts) >= 4:
+        if len(self.ghosts) >= 6:
             return
         
-        ghost = Ghost((random.randint(0, 100), random.randint(0, 100)))
-        self.ghosts.append(ghost)
+        # do not create with same color
+        while True:
+            name = random.choice(self.name_list)
+            existing = [n for n in self.ghosts.sprites() if n.name == name]
+            if len(existing) == 0:
+                break
+
+        ghost = Ghost(name, (random.randint(0, 100), random.randint(0, 100)), self.maxHeight, self.maxWidth)
+        self.ghosts.add(ghost)
         return ghost
     
     def killGhost(self, ghost):
