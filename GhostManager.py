@@ -22,7 +22,7 @@ class GhostManager(pygame.sprite.Sprite):
             if len(existing) == 0:
                 break
 
-        ghost = Ghost(name, (random.randint(0, 100), random.randint(0, 100)), self.maxHeight, self.maxWidth)
+        ghost = Ghost(name, (random.randint(0, self.maxHeight), random.randint(0, self.maxWidth)), self.maxHeight, self.maxWidth)
         self.ghosts.add(ghost)
         return ghost
     

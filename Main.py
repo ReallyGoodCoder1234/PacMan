@@ -13,8 +13,8 @@ pygame.init()
 
 pygame.display.set_caption('Main Menu')
 
-sw = 500
-sh = 500
+sw = 600
+sh = 300
 screen = pygame.display.set_mode((sw,sh))
 
 ghost_manager = GhostManager(sh, sw)
@@ -51,10 +51,10 @@ def credits():
     screenType = ScreenType.Credits
 
 # Buttons
-quit_button = Button('Quit',200,40,(25,450),6, quit)
-credits_button = Button('Credits',200,40,(25,350),6, credits)
-how_button = Button('How To Play',200,40,(275,450),6, how)
-play_button = Button('Play',200,40,(275,350),6, play)
+quit_button = Button('Quit',200,40,(55,200),6, quit)
+credits_button = Button('Credits',200,40,(55,100),6, credits)
+how_button = Button('How To Play',200,40,(305,200),6, how)
+play_button = Button('Play',200,40,(305,100),6, play)
 
 # Backgrounds
 main_menu_background = pygame.transform.scale2x(pygame.image.load("./Assets/Levels_and_backgrounds/Main_menu_backgound.png"))
@@ -78,9 +78,6 @@ while True:
         how_button.draw(screen)
         play_button.draw(screen)
     elif (screenType == ScreenType.Play):
-        sw = 1428 
-        sh = 598
-        screen = pygame.display.set_mode((sw,sh))
         screen.blit(pac_man_surface,(200,200))
         #Draw all ghosts
         for entity in all_ghosts:
@@ -111,3 +108,5 @@ while True:
         credits_text_rect = credits_text.get_rect()
 
     pygame.display.flip()
+
+    pygame.time.Clock().tick(100)
