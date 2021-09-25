@@ -1,3 +1,4 @@
+from pygame.constants import KEYDOWN
 from ScreenType import ScreenType
 from GhostManager import GhostManager
 import pygame, sys, random
@@ -36,13 +37,18 @@ bigger_font = pygame.font.Font(None, 100)
 running = True
 screenType = ScreenType.Main
 
+pac_man = Pac_man
+
 def quit():
     pygame.quit()
     sys.exit()
 
 def play():
-    global screenType
+    global screenType, sw, sh, screen
     screenType = ScreenType.Play
+    sw = 1598
+    sh = 598
+    screen = pygame.display.set_mode((sw,sh))
 
 def how():
     global screenType
@@ -74,6 +80,8 @@ while running:
            sys.exit()
         elif event.type == ADDGHOST and screenType == ScreenType.Play:
             ghost_manager.createGhost()
+        if screenType == ScreenType.Play:
+            pass
 
     screen.fill((0, 0, 0))
 
@@ -90,6 +98,9 @@ while running:
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
+        if KEYDOWN == True:
+            keys = pygame.key.get_pressed
+            pac_man.move_pacman(keys)
 
         all_ghosts.update()
 
@@ -152,6 +163,10 @@ while running:
         credits_title_rect.center = (250, 80)
         screen.blit(credits_title, credits_title_rect)
         escape_button.draw(screen)
+        pac_man_text = big_font.render('PAC-MAN', True, (0,0,0), (0,255,0))
+        pac_man_text_rect = pac_man_text.get_rect()
+        pac_man_text_rect.center = (sw // 2, 470)
+        screen.blit(pac_man_text, pac_man_text_rect)
         pygame.display.set_caption('Credits')
     pygame.display.flip()
 

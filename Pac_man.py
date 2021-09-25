@@ -7,11 +7,14 @@ from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K
 
 class Pac_man(pygame.sprite.Sprite):
     def __init__():
+        global pac_man_rect
         pac_man = pygame.image.load("./Assets/Sprites/Pac_mans/Full_circ.png")
-    def move_pacman(self):
-        if K_LEFT == True:
-            self = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png").convert_alpha()
-            self.rect.move_ip(-5, 0)
+        pac_man_rect = pygame.get_rect(pac_man)
+    def move_pacman(self,keys):
+        
+        vel = 10
+        if keys[pygame.K_LEFT] and pac_man_rect.centerx>0:
+            pac_man_rect.centerx -= vel
         elif K_UP == True:
             self = pygame.image.load("./Assets/Sprites/Pac_mans/pac man & life counter & death/pac man/").convert_alpha()
             self.rect.move_ip(0, -5)
