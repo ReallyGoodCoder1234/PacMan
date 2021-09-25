@@ -17,7 +17,7 @@ sw = 500
 sh = 500
 screen = pygame.display.set_mode((sw,sh))
 
-ghost_manager = GhostManager(sh, sw)
+ghost_manager = GhostManager(598, 1598)
 all_ghosts = ghost_manager.ghosts
 
 ADDGHOST = pygame.USEREVENT + 1
@@ -26,8 +26,7 @@ RELEASEGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(RELEASEGHOST, 5500)
 
 # Pac man
-pac_man_surface = pygame.image.load("./Assets/Sprites/Pac_mans/Left_open.png").convert_alpha()
-pac_man_rect = pac_man_surface.get_rect()
+pac_man = Pac_man(sw,sh,screen)
 
 # Fonts
 text_font = pygame.font.Font(None,30)
@@ -36,8 +35,6 @@ bigger_font = pygame.font.Font(None, 100)
 
 running = True
 screenType = ScreenType.Main
-
-pac_man = Pac_man
 
 def quit():
     pygame.quit()
@@ -61,7 +58,6 @@ def credits():
 def escape():
     global screenType, running
     screenType = ScreenType.Main
-
 # Buttons
 quit_button = Button('Quit',200,40,(25,450),6, quit)
 credits_button = Button('Credits',200,40,(25,375),6, credits)
@@ -93,15 +89,20 @@ while running:
         how_button.draw(screen)
         play_button.draw(screen)
         pygame.display.set_caption('Main Menu')
+        sw = 500
+        sh = 500
+        screen = pygame.display.set_mode((sw,sh))
     elif (screenType == ScreenType.Play):
-        screen.blit(pac_man_surface,(200,200))
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
+        escape_button.draw(screen)
         if KEYDOWN == True:
             keys = pygame.key.get_pressed
-            pac_man.move_pacman(keys)
-
+            pac_man.move_pacman(keys,598,1598)
+        sw = 1598
+        sh = 598
+        screen = pygame.display.set_mode((sw,sh))
         all_ghosts.update()
 
     elif (screenType == ScreenType.How):
@@ -148,6 +149,9 @@ while running:
         screen.blit(how_text_level_10, how_text_rect_10)
         escape_button.draw(screen)
         pygame.display.set_caption('How To Play')
+        sw = 500
+        sh = 500
+        screen = pygame.display.set_mode((sw,sh))
     elif (screenType == ScreenType.Credits):
         screen.blit(main_menu_background,(0,0))
         credits_text = text_font.render('All credits go to', True, (0,0,0),(255,255,255))
@@ -168,6 +172,9 @@ while running:
         pac_man_text_rect.center = (sw // 2, 470)
         screen.blit(pac_man_text, pac_man_text_rect)
         pygame.display.set_caption('Credits')
+        sw = 500
+        sh = 500
+        screen = pygame.display.set_mode((sw,sh))
     pygame.display.flip()
 
     pygame.time.Clock().tick(100)

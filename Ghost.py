@@ -13,7 +13,7 @@ class Ghost(pygame.sprite.Sprite):
         super(Ghost, self).__init__()
         self.direction = random.choice(self.directions)
         image = "./Assets/Sprites/Ghosts/" + self.name + "/" + self.name + "_" + self.directionImage[int(self.direction)] + ".png"
-        self.surf = pygame.image.load(image).convert()
+        self.surf = pygame.image.load(image).convert_alpha()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(
             center = pos
@@ -40,7 +40,7 @@ class Ghost(pygame.sprite.Sprite):
             self.direction = Direction.Up
 
         image = "./Assets/Sprites/Ghosts/" + self.name + "/" + self.name + "_" + self.directionImage[int(self.direction)] + ".png"
-        self.surf = pygame.image.load(image).convert()
+        self.surf = pygame.image.load(image).convert_alpha()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
     def release_ghost():
