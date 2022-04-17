@@ -17,13 +17,13 @@ class Pac_man(pygame.sprite.Sprite):
         self.speed = 1
         screen.blit(self.surf,self.rect)
 
-    def pac_right(self, a, amount):
-        if a == "a":
+    def pac_right(self, d, amount):
+        if d == "d":
             self.rect.centerx += amount
             image = "./Assets/Sprites/Pac_mans/Right_open.png"
             self.surf = pygame.image.load(image).convert_alpha()
-    def pac_left(self, d, amount):
-        if d == "d":
+    def pac_left(self, a, amount):
+        if a == "a":
             self.rect.centerx -= amount
             image = "./Assets/Sprites/Pac_mans/Left_open.png"
             self.surf = pygame.image.load(image).convert_alpha()
