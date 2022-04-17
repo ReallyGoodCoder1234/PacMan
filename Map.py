@@ -1,5 +1,4 @@
 import pygame
-from msilib.schema import Class
 
 class MapCreator(pygame.sprite.Sprite):
 
