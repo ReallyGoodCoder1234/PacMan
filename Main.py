@@ -8,6 +8,7 @@ from Ghost import Ghost
 from Pac_man import Pac_man
 from ScreenType import ScreenType
 from GhostManager import GhostManager
+from Map import MapCreator
 
 #screen
 pygame.init()
@@ -38,6 +39,10 @@ giant_font = pygame.font.Font(None, 200)
 #Screens
 running = True
 screenType = ScreenType.Main
+
+#Wall
+MapC = MapCreator
+MapC.download_level()
 
 def quit():
     pygame.quit()
@@ -189,6 +194,7 @@ while running:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
+        MapC.draw_image(screen, 20)
 
 
     #Update
