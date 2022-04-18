@@ -41,8 +41,8 @@ running = True
 screenType = ScreenType.Main
 
 #Wall
-MapC = MapCreator
-MapC.download_level()
+MapC = MapCreator()
+MapC.download_level("Map1.txt")
 
 def quit():
     pygame.quit()

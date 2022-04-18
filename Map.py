@@ -4,11 +4,10 @@ class MapCreator(pygame.sprite.Sprite):
 
     def __init__(self):
         self.world = []
-        self.file = open("Map1.txt")
         self.walldic = {'.': 'dot.png', '=': 'wall.png', '*': 'power.png',}
 
-    def download_level(self):
-        with open(self.file) as f:
+    def download_level(self, file):
+        with open(file) as f:
             for line in f:
                 row = []
                 for block in line:
