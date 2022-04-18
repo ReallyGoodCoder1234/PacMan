@@ -193,7 +193,7 @@ while running:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
-        MapC.draw_image(screen, 20)
+        #MapC.draw_image(screen, 20)
 
 
     #Update

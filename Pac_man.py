@@ -39,10 +39,10 @@ class Pac_man(pygame.sprite.Sprite):
             self.surf = pygame.image.load(image).convert_alpha()            
 
     def move_pacman(self, kd):
-        self.pac_right(kd, 100)
-        self.pac_left(kd, 100)
-        self.pac_up(kd, 100)
-        self.pac_down(kd, 100)
+        self.pac_right(kd, 5)
+        self.pac_left(kd, 5)
+        self.pac_up(kd, 5)
+        self.pac_down(kd, 5)
 
     def kill_pacman(surface,sound,ghost):
         pass
