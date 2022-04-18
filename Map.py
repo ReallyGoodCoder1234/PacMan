@@ -19,5 +19,4 @@ class MapCreator(pygame.sprite.Sprite):
             for x, block in enumerate(row):
                 image = self.walldic.get(block, None)
                 if image:
-                    for x in self.walldic:
-                        screen.blit(self.walldic.get(x), (x*bs, y*bs))
+                    screen.blit(self.walldic.get('='), (x*bs, y*bs))

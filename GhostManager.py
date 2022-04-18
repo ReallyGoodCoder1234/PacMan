@@ -12,7 +12,7 @@ class GhostManager(pygame.sprite.Sprite):
 
     def createGhost(self):
         # only create max to 4 ghosts
-        if len(self.ghosts) >= 6:
+        if len(self.ghosts) >= 5:
             return
         
         # do not create with same color
