@@ -46,3 +46,16 @@ class Pac_man(pygame.sprite.Sprite):
 
     def kill_pacman(surface,sound,ghost):
         pass
+
+    def collide_wall(self, list):
+        for x in list:
+            if self.rect.colliderect(x.rect):
+                if self.rect.right > x.rect.left:
+                    self.rect.right = x.rect.left
+                if self.rect.left < x.rect.right:
+                    self.rect.left = x.rect.right
+                if self.rect.bottom > x.rect.top:
+                    self.rect.bottom = x.rect.top
+                if self.rect.top < x.rect.bottom:
+                    self.rect.top = x.rect.bottom
+        pass
