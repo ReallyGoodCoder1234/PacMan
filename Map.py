@@ -4,7 +4,7 @@ class MapCreator(pygame.sprite.Sprite):
 
     def __init__(self):
         self.world = []
-        self.walldic = {'.': pygame.image.load("./Assets/Levels_and_backgrounds/pellet.png").convert_alpha(), '=': 'wall.png', '*': 'power.png',}
+        self.walldic = {'.': pygame.image.load("./Assets/Levels_and_backgrounds/pellet.png").convert_alpha(), '=': pygame.image.load("./Assets/Levels_and_backgrounds/wall.png").convert_alpha(), '*': 'power.png',}
 
     def download_level(self, file):
         with open(file) as f:
