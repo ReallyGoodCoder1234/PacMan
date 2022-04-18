@@ -1,4 +1,3 @@
-from turtle import left
 import pygame, sys, random
 from pygame.cursors import tri_left
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL,K_ESCAPE,KEYDOWN)
