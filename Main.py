@@ -188,14 +188,15 @@ while running:
 
     elif (screenType == ScreenType.Play):
         MapC.draw_walls(screen, 20)
-        #draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
+        draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
         MapC.draw_pellets(screen, 20)
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
-        #pac_man.collide_wall(MapC.walllist)
+        #pac_man.collide_wall()
+        pac_man.eat()
 
 
 

@@ -48,4 +48,22 @@ class Pac_man(pygame.sprite.Sprite):
     def kill_pacman(surface,sound,ghost):
         pass
 
-    def collide_wall(self, list):
+    def collide_wall(self):
+        for wall in self.map.walllist:
+            wallr = wall.get_rect
+            if self.rect.top < wallr.bottom:
+                self.rect.top = wallr.bottom
+
+            if self.rect.bottom > wallr.top:
+                self.rect.bottom = wallr.top
+
+            if self.rect.right > wallr.left:
+                self.rect.right = wallr.left
+
+            if self.rect.left < wallr.right:
+                self.rect.left = wallr.right
+    
+    def eat(self):
+        for pellet in self.map.pelletlist:
+            if (self.rect.collidepoint(pellet.get_rect)):
+                pygame.sprite.Sprite.kill(pellet)
