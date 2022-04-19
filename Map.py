@@ -21,5 +21,4 @@ class MapCreator(pygame.sprite.Sprite):
                 image = self.walldic.get(block, None)
                 if image:
                     screen.blit(self.walldic.get('='), (x*bs, y*bs))
-                    list = [self.walldic.get('='), (x*bs, y*bs)]
-                    self.walllist.append(list)
+                    self.walllist.append([x*bs, y*bs])
