@@ -8,7 +8,7 @@ class MapCreator(pygame.sprite.Sprite):
         self.worldpower = []
         self.worldgate = []
         
-        self.walldic = {'.': pygame.image.load("./Assets/Levels_and_backgrounds/Pellet.png"), '=': pygame.image.load("./Assets/Levels_and_backgrounds/Wall.png"), '*': pygame.image.load('./Assets/Levels_and_backgrounds/Power_Pellet.png'), '-': pygame.image.load('./Assets/Levels_and_backgrounds/Door.png')}
+        self.walldic = {'.': "./Assets/Levels_and_backgrounds/Pellet.png", '=': "./Assets/Levels_and_backgrounds/Wall.png", '*': './Assets/Levels_and_backgrounds/Power_Pellet.png', '-': './Assets/Levels_and_backgrounds/Door.png'}
         self.walllist = []
         self.pelletlist = []
         self.powerlist = []
@@ -37,25 +37,19 @@ class MapCreator(pygame.sprite.Sprite):
                 self.worldgate.append(row)
 
     def draw_walls(self, screen, bs):
-        for y, row in enumerate(self.worldwall):
-            for x, block in enumerate(row):
-                image = self.walldic.get(block, None)
-                if image:
-                    screen.blit(self.walldic.get('='), (x*bs, y*bs))
-                    self.walllist.append([x*bs, y*bs])
+        self.draw_map(screen, bs, 0, self.worldwall, self.walllist)
 
     def draw_pellets(self, screen, bs):
-        for y, row in enumerate(self.worldpellet):
-            for x, block in enumerate(row):
-                image = self.walldic.get(block, None)
-                if image:
-                    screen.blit(self.walldic.get('.'), (x*bs, y*bs))
-                    self.pelletlist.append([x*bs, y*bs])
+        self.draw_map(screen, bs, 5, self.worldpellet, self.pelletlist)
 
     def draw_gate(self, screen, bs):
-        for y, row in enumerate(self.worldpower):
+        self.draw_map(screen, bs, 0, self.worldpower, self.gatelist)
+
+    def draw_map(self, screen, bs, offset, objectMap, objectList):
+        for y, row in enumerate(objectMap):
             for x, block in enumerate(row):
-                image = self.walldic.get(block, None)
-                if image:
-                    screen.blit(self.walldic.get('-'), (x*bs, y*bs))
-                    self.gatelist.append([x*bs, y*bs])
+                imageFile = self.walldic.get(block, None)
+                if imageFile:
+                    image = pygame.image.load(imageFile)
+                    screen.blit(image, (x*bs+offset, y*bs+offset))
+                    objectList.append(image)

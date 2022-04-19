@@ -15,6 +15,10 @@ sw = 560
 sh = 620
 screen = pygame.display.set_mode((sw,sh))
 
+#Wall
+MapC = MapCreator()
+MapC.download_level("Wall map.txt", "Pellet map.txt", "gate.txt", "power.txt")
+
 #Ghost
 ghost_manager = GhostManager(598, 1598)
 all_ghosts = ghost_manager.ghosts
@@ -27,7 +31,7 @@ pygame.time.set_timer(RELEASEGHOST, 5500)
 # Pac man
 xxx = 1598 // 2
 xxxx = sh - 100
-pac_man = Pac_man(sh,sw,screen)
+pac_man = Pac_man(sh,sw,screen, MapC)
 
 # Fonts
 text_font = pygame.font.Font(None,30)
@@ -38,10 +42,6 @@ giant_font = pygame.font.Font(None, 200)
 #Screens
 running = True
 screenType = ScreenType.Main
-
-#Wall
-MapC = MapCreator()
-MapC.download_level("Wall map.txt", "Pellet map.txt", "gate.txt", "power.txt")
 
 def quit():
     pygame.quit()
@@ -188,7 +188,7 @@ while running:
 
     elif (screenType == ScreenType.Play):
         MapC.draw_walls(screen, 20)
-        draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
+        #draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
         MapC.draw_pellets(screen, 20)
         #Draw all ghosts
         for entity in all_ghosts:

@@ -6,7 +6,8 @@ from pygame.cursors import tri_left
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL,K_ESCAPE)
 
 class Pac_man(pygame.sprite.Sprite):
-    def __init__(self, maxHeight, maxWidth,screen):
+    def __init__(self, maxHeight, maxWidth, screen, map):
+        self.map = map
         self.maxHeight = maxHeight
         self.maxWidth = maxWidth
         super(Pac_man, self).__init__()
@@ -48,13 +49,3 @@ class Pac_man(pygame.sprite.Sprite):
         pass
 
     def collide_wall(self, list):
-        for x in list:
-            if self.rect.right > x[0]:
-                self.rect.right = x.rect.left
-            if self.rect.left < x[0]:
-                self.rect.left = x.rect.right
-            if self.rect.bottom > x[1]:
-                self.rect.bottom = x.rect.top
-            if self.rect.top < x[1]:
-                self.rect.top = x.rect.bottom
-        pass
