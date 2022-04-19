@@ -41,7 +41,7 @@ screenType = ScreenType.Main
 
 #Wall
 MapC = MapCreator()
-MapC.download_level("Map1.txt")
+MapC.download_level("Wall map.txt", "Pellet map.txt", "gate.txt", "power.txt")
 
 def quit():
     pygame.quit()
@@ -187,9 +187,9 @@ while running:
         pygame.display.set_caption('Credits')
 
     elif (screenType == ScreenType.Play):
-
+        MapC.draw_walls(screen, 20)
         draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
-        MapC.draw_image(screen, 20)
+        MapC.draw_pellets(screen, 20)
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
