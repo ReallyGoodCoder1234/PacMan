@@ -44,7 +44,6 @@ class Pac_man(pygame.sprite.Sprite):
         self.pac_left(kd, 5)
         self.pac_up(kd, 5)
         self.pac_down(kd, 5)
-        self.eat()
 
     def kill_pacman(surface,sound,ghost):
         pass
@@ -63,8 +62,3 @@ class Pac_man(pygame.sprite.Sprite):
 
             if self.rect.left < wallr.right:
                 self.rect.left = wallr.right
-    
-    def eat(self):
-        for pellet in self.map.pelletlist:
-            if self.rect.colliderect(pellet.rect):
-                pygame.sprite.Sprite.kill(pellet)

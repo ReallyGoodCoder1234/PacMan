@@ -33,6 +33,11 @@ xxx = 1598 // 2
 xxxx = sh - 100
 pac_man = Pac_man(sh,sw,screen, MapC)
 
+def eat(pac_man):
+    for pellet in pac_man.map.pelletlist:
+        if pac_man.rect.colliderect(pellet.rect):
+            pellet.kill()
+
 # Fonts
 text_font = pygame.font.Font(None,30)
 big_font = pygame.font.Font(None, 50)
@@ -196,7 +201,7 @@ while running:
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
         #pac_man.collide_wall()
-        pac_man.eat()
+        eat(pac_man)
 
 
 
