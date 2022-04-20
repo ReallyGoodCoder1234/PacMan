@@ -1,4 +1,5 @@
 import pygame
+from pellet import Pellet
 
 class MapCreator(pygame.sprite.Sprite):
 
@@ -40,7 +41,8 @@ class MapCreator(pygame.sprite.Sprite):
         self.draw_map(screen, bs, 0, self.worldwall, self.walllist)
 
     def draw_pellets(self, screen, bs):
-        self.draw_map(screen, bs, 5, self.worldpellet, self.pelletlist)
+        pellet = Pellet(screen)
+        self.pelletlist.append(pellet)
 
     def draw_gate(self, screen, bs):
         self.draw_map(screen, bs, 0, self.worldpower, self.gatelist)

@@ -65,5 +65,5 @@ class Pac_man(pygame.sprite.Sprite):
     
     def eat(self):
         for pellet in self.map.pelletlist:
-            if (self.rect.collidepoint(pellet.get_rect)):
+            if self.rect.colliderect(pellet.rect):
                 pygame.sprite.Sprite.kill(pellet)
