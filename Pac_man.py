@@ -44,6 +44,7 @@ class Pac_man(pygame.sprite.Sprite):
         self.pac_left(kd, 5)
         self.pac_up(kd, 5)
         self.pac_down(kd, 5)
+        self.eat()
 
     def kill_pacman(surface,sound,ghost):
         pass

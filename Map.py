@@ -41,8 +41,12 @@ class MapCreator(pygame.sprite.Sprite):
         self.draw_map(screen, bs, 0, self.worldwall, self.walllist)
 
     def draw_pellets(self, screen, bs):
-        pellet = Pellet(screen)
-        self.pelletlist.append(pellet)
+        for y, row in enumerate(self.worldpellet):
+            for x, block in enumerate(row):
+                imageFile = self.walldic.get(block, None)
+                if imageFile:
+                    pellet = Pellet(screen, x*bs+5, y*bs+5)
+                    self.pelletlist.append(pellet)
 
     def draw_gate(self, screen, bs):
         self.draw_map(screen, bs, 0, self.worldpower, self.gatelist)
