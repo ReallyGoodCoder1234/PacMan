@@ -3,7 +3,11 @@ import pygame, sys, random
 
 from pygame.cursors import tri_left
 
+from pygame import mixer
+
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL,K_ESCAPE)
+
+from pellet import Pellet
 
 class Pac_man(pygame.sprite.Sprite):
     def __init__(self, maxHeight, maxWidth, screen, map):
@@ -50,15 +54,20 @@ class Pac_man(pygame.sprite.Sprite):
 
     def collide_wall(self):
         for wall in self.map.walllist:
-            wallr = wall.get_rect
-            if self.rect.top < wallr.bottom:
-                self.rect.top = wallr.bottom
+            pass
 
-            if self.rect.bottom > wallr.top:
-                self.rect.bottom = wallr.top
+    def chomp():
+        mixer.init()
+        mixer.music.load("./Assets/Music/pacman_chomp.wav")
+        mixer.music.set_volume(100)
+        mixer.music.play()
 
-            if self.rect.right > wallr.left:
-                self.rect.right = wallr.left
+    def eat(self):
+        if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) >= 1:
+            die = pygame.sprite.spritecollide(self, self.map.pellets, True)
+            for x in die:
+                self.map.pellets.remove(x)
+                Pac_man.chomp()
+        else:
+            return False
 
-            if self.rect.left < wallr.right:
-                self.rect.left = wallr.right

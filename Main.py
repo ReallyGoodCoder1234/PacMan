@@ -1,6 +1,7 @@
 import pygame, sys, random
 from pygame.cursors import tri_left
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL,K_ESCAPE,KEYDOWN)
+from pygame import mixer
 
 from Buttons import Button
 from Ghost import Ghost
@@ -8,6 +9,11 @@ from Pac_man import Pac_man
 from ScreenType import ScreenType
 from GhostManager import GhostManager
 from Map import MapCreator
+from pellet import Pellet
+
+mixer.init()
+mixer.music.load("./Assets/Music/pacman_eatfruit.wav")
+mixer.music.set_volume(100)
 
 #screen
 pygame.init()
@@ -18,6 +24,8 @@ screen = pygame.display.set_mode((sw,sh))
 #Wall
 MapC = MapCreator()
 MapC.download_level("Wall map.txt", "Pellet map.txt", "gate.txt", "power.txt")
+MapC.create_pellet()
+MapC.create_walls()
 
 #Ghost
 ghost_manager = GhostManager(598, 1598)
@@ -27,16 +35,13 @@ ADDGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDGHOST, 1200)
 RELEASEGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(RELEASEGHOST, 5500)
+CREATEP = pygame.USEREVENT + 2
+pygame.time.set_timer(CREATEP, 1)
 
 # Pac man
 xxx = 1598 // 2
 xxxx = sh - 100
 pac_man = Pac_man(sh,sw,screen, MapC)
-
-def eat(pac_man):
-    for pellet in pac_man.map.pelletlist:
-        if pac_man.rect.colliderect(pellet.rect):
-            pellet.kill()
 
 # Fonts
 text_font = pygame.font.Font(None,30)
@@ -83,7 +88,6 @@ escape_button = Button('Back',200,40,(0,0),6, escape)
 
 # Backgrounds
 main_menu_background = pygame.transform.scale2x(pygame.image.load("./Assets/Levels_and_backgrounds/Main_menu_backgound.png"))
-
 # Game loop
 while running:
     for event in pygame.event.get():
@@ -94,7 +98,9 @@ while running:
         #Create Ghost
         elif event.type == ADDGHOST and screenType == ScreenType.Play:
             ghost_manager.createGhost()
-        if screenType == ScreenType.Play:
+        
+        elif event.type == CREATEP and screenType == ScreenType.Play:
+            #MapC.draw_walls(screen, 20)
             pass
 
         if event.type == pygame.KEYDOWN:
@@ -192,16 +198,27 @@ while running:
         pygame.display.set_caption('Credits')
 
     elif (screenType == ScreenType.Play):
-        MapC.draw_walls(screen, 20)
+        for wall in pac_man.map.walllist:
+            cw = wall[0]
+            coor = wall[1]
+            screen.blit(cw.surf, coor)
         draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
-        MapC.draw_pellets(screen, 20)
+        for spr in pac_man.map.pellets:
+            screen.blit(spr.surf, spr.rect)
+        pac_man.map.pellets.update()
+        for spr in pac_man.map.walls:
+            screen.blit(spr.surf, spr.rect)
+        pac_man.map.walls.update()
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
         #pac_man.collide_wall()
-        eat(pac_man)
+        pac_man.eat()
+        eaten = pac_man.eat()
+        if eaten != True:
+            pac_man.chomp
 
 
 

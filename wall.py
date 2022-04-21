@@ -1,19 +1,19 @@
 import pygame
 
-class Pellet(pygame.sprite.Sprite):
+class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        super(Pellet, self).__init__()
-        image = "./Assets/Levels_and_backgrounds/Pellet.png"
+        super(Wall, self).__init__()
+        image = "./Assets/Levels_and_backgrounds/Wall.png"
         self.surf = pygame.image.load(image).convert_alpha()
         self.x = x
         self.y = y
         self.rect = self.surf.get_rect(
-            center = (x+5, y+5)
+            center = (x, y)
         )
 
     def remove(self, group):
         group.remove_internal(self)
 
     def update(self):
-        image = "./Assets/Levels_and_backgrounds/Pellet.png"
+        image = "./Assets/Levels_and_backgrounds/Wall.png"
         self.surf = pygame.image.load(image).convert_alpha()

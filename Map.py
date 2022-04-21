@@ -1,5 +1,6 @@
 import pygame
 from pellet import Pellet
+from wall import Wall
 
 class MapCreator(pygame.sprite.Sprite):
 
@@ -11,7 +12,8 @@ class MapCreator(pygame.sprite.Sprite):
         
         self.walldic = {'.': "./Assets/Levels_and_backgrounds/Pellet.png", '=': "./Assets/Levels_and_backgrounds/Wall.png", '*': './Assets/Levels_and_backgrounds/Power_Pellet.png', '-': './Assets/Levels_and_backgrounds/Door.png'}
         self.walllist = []
-        self.pelletlist = []
+        self.pellets = pygame.sprite.Group()
+        self.walls = pygame.sprite.Group()
         self.powerlist = []
         self.gatelist = []
 
@@ -37,16 +39,21 @@ class MapCreator(pygame.sprite.Sprite):
                     row.append(block)
                 self.worldgate.append(row)
 
-    def draw_walls(self, screen, bs):
-        self.draw_map(screen, bs, 0, self.worldwall, self.walllist)
+    def create_walls(self):
+        for y, row in enumerate(self.worldwall):
+            for x, block in enumerate(row):
+                imageFile = self.walldic.get(block, None)
+                if imageFile:
+                    wall = Wall(x*20+0, y*20+0)
+                    self.walls.add(wall)
 
-    def draw_pellets(self, screen, bs):
+    def create_pellet(self):
         for y, row in enumerate(self.worldpellet):
             for x, block in enumerate(row):
                 imageFile = self.walldic.get(block, None)
                 if imageFile:
-                    pellet = Pellet(screen, x*bs+5, y*bs+5)
-                    self.pelletlist.append(pellet)
+                    pellet = Pellet(x*20+5, y*20+5)
+                    self.pellets.add(pellet)
 
     def draw_gate(self, screen, bs):
         self.draw_map(screen, bs, 0, self.worldpower, self.gatelist)
