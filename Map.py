@@ -44,7 +44,7 @@ class MapCreator(pygame.sprite.Sprite):
             for x, block in enumerate(row):
                 imageFile = self.walldic.get(block, None)
                 if imageFile:
-                    wall = Wall(x*20+0, y*20+0)
+                    wall = Wall(x*20+5, y*20+5)
                     self.walls.add(wall)
 
     def create_pellet(self):

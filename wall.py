@@ -11,9 +11,6 @@ class Wall(pygame.sprite.Sprite):
             center = (x, y)
         )
 
-    def remove(self, group):
-        group.remove_internal(self)
-
     def update(self):
         image = "./Assets/Levels_and_backgrounds/Wall.png"
         self.surf = pygame.image.load(image).convert_alpha()

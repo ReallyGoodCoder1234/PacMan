@@ -198,17 +198,13 @@ while running:
         pygame.display.set_caption('Credits')
 
     elif (screenType == ScreenType.Play):
-        for wall in pac_man.map.walllist:
-            cw = wall[0]
-            coor = wall[1]
-            screen.blit(cw.surf, coor)
+        for spr in pac_man.map.walls:
+            screen.blit(spr.surf, spr.rect)
+        pac_man.map.walls.update()
         draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
         for spr in pac_man.map.pellets:
             screen.blit(spr.surf, spr.rect)
         pac_man.map.pellets.update()
-        for spr in pac_man.map.walls:
-            screen.blit(spr.surf, spr.rect)
-        pac_man.map.walls.update()
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)

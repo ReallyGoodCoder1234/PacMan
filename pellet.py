@@ -8,7 +8,7 @@ class Pellet(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.rect = self.surf.get_rect(
-            center = (x+5, y+5)
+            center = (x+4, y+4)
         )
 
     def remove(self, group):
