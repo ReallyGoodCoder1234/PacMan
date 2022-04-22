@@ -1,9 +1,7 @@
 from ScreenType import ScreenType
-import pygame, sys, random
+import pygame
 
 from pygame.cursors import tri_left
-
-from pygame import mixer
 
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL,K_ESCAPE)
 
@@ -11,7 +9,7 @@ from pellet import Pellet
 
 class Pac_man(pygame.sprite.Sprite):
     def __init__(self, maxHeight, maxWidth, screen, map):
-        self.dic = {"right": False, "left": False, "top": False, "bottom": False}
+        self.dic = {"right": True, "left": True, "top": True, "bottom": True}
         self.map = map
         self.maxHeight = maxHeight
         self.maxWidth = maxWidth
@@ -24,6 +22,8 @@ class Pac_man(pygame.sprite.Sprite):
         )
         self.speed = 1
         screen.blit(self.surf,self.rect)
+        self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
+
 
     def pac_right(self, d, amount):
         if self.dic["right"] == True:
@@ -84,18 +84,10 @@ class Pac_man(pygame.sprite.Sprite):
                 else:
                     self.dic = {"right": False, "left": False, "top": False, "bottom": False}
 
-    def chomp():
-        mixer.init()
-        mixer.music.load("./Assets/Music/pacman_chomp.wav")
-        mixer.music.set_volume(100)
-        mixer.music.play()
+    def chomp(self):
+        pygame.mixer.Sound.play(self.chompSound)
 
     def eat(self):
-        if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) >= 1:
-            die = pygame.sprite.spritecollide(self, self.map.pellets, True)
-            for x in die:
-                self.map.pellets.remove(x)
-                Pac_man.chomp()
-        else:
-            return False
+        if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
+            self.chomp()
 

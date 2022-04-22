@@ -211,11 +211,6 @@ while running:
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
         pac_man.eat()
-        eaten = pac_man.eat()
-        if eaten != False:
-            pac_man.chomp()
-
-
 
     #Update
     pygame.display.flip()
