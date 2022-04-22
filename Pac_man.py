@@ -18,7 +18,9 @@ class Pac_man(pygame.sprite.Sprite):
         image = "./Assets/Sprites/Pac_mans/Right_open.png"
         self.surf = pygame.image.load(image).convert_alpha()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-        self.rect = self.surf.get_rect()
+        self.rect = self.surf.get_rect(
+            center = (280,470)
+        )
         self.speed = 1
         screen.blit(self.surf,self.rect)
 
@@ -53,8 +55,17 @@ class Pac_man(pygame.sprite.Sprite):
         pass
 
     def collide_wall(self):
-        for wall in self.map.walllist:
-            pass
+        if len(pygame.sprite.spritecollide(self,self.map.walls,False, None)) >= 1:
+            collidelist = pygame.sprite.spritecollide(self, self.map.walls, False, None)
+            for x in collidelist:
+                if self.rect.left == x.rect.right:
+                    self.rect.left = x.rect.right
+                elif self.rect.right == x.rect.left:
+                    self.rect.right = x.rect.left
+                elif self.rect.top == x.rect.bottom:
+                    self.rect.top = x.rect.bottom
+                elif self.rect.bottom == x.rect.top:
+                    self.rect.bottom = x.rect.top
 
     def chomp():
         mixer.init()
