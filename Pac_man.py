@@ -23,6 +23,17 @@ class Pac_man(pygame.sprite.Sprite):
         self.speed = 1
         screen.blit(self.surf,self.rect)
         self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
+        self.wallsdic = {}
+
+    def check_wall(self, i):
+        for x in self.map.walls:
+            self.wallsdic[i] = x.rect
+            i += 1
+        while self.rect.collidedict(self.wallsdic, 1) != None:
+            print(self.rect.collidedict(self.wallsdic, 1 ))
+
+            
+
 
 
     def pac_right(self, d, amount):
@@ -50,11 +61,11 @@ class Pac_man(pygame.sprite.Sprite):
         else:
             self.dic["bottom"] = False
     def pac_up(self, w, amount):
-        if self.dic["top"] == True:
-            if w == "w":
-                self.rect.centery -= amount
-                image = "./Assets/Sprites/Pac_mans/Up_open.png"
-                self.surf = pygame.image.load(image).convert_alpha()
+        self.check_wall(0)
+        if w == "w":
+            self.rect.centery -= amount
+            image = "./Assets/Sprites/Pac_mans/Up_open.png"
+            self.surf = pygame.image.load(image).convert_alpha()
         else:
             self.dic["top"] = False
 
@@ -69,25 +80,9 @@ class Pac_man(pygame.sprite.Sprite):
     def kill_pacman(surface,sound,ghost):
         pass
 
-    def check_wall(self):
-        if len(pygame.sprite.spritecollide(self,self.map.walls,False, None)) >= 1:
-            collidelist = pygame.sprite.spritecollide(self, self.map.walls, False, None)
-            for x in collidelist:
-                if self.rect.left >= x.rect.right:
-                    self.dic["right"] = True
-                elif self.rect.right <= x.rect.left:
-                   self.dic["left"] = True
-                elif self.rect.top <= x.rect.bottom:
-                   self.dic["top"] = True
-                elif self.rect.bottom >= x.rect.top:
-                   self.dic["bottom"] = True
-                else:
-                    self.dic = {"right": False, "left": False, "top": False, "bottom": False}
-
     def chomp(self):
         pygame.mixer.Sound.play(self.chompSound)
 
     def eat(self):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
             self.chomp()
-
