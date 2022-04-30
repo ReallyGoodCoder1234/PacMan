@@ -215,7 +215,6 @@ while running:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
         screen.blit(pac_man.surf,pac_man.rect)
-        pac_man.eat()
 
     #Update
     pygame.display.flip()

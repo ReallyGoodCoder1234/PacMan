@@ -25,48 +25,56 @@ class Pac_man(pygame.sprite.Sprite):
         screen.blit(self.surf,self.rect)
         self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
 
+    def eat(self):
+        if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
+            self.chomp()
+
     def pac_right(self, d, amount, i):
         if d == "d":
             while i == 0:
                 self.rect.centerx += amount
                 image = "./Assets/Sprites/Pac_mans/Right_open.png"
                 self.surf = pygame.image.load(image).convert_alpha()
+                self.eat()
                 for r in self.map.walls:
                     if self.rect.colliderect(r):
-                        self.rect.centerx += amount
+                        self.rect.centerx -= amount
                         i = 1
+
 
     def pac_left(self, a, amount, i):
         if a == "a":
             while i == 0:
                 self.rect.centerx -= amount
+                self.eat()
                 image = "./Assets/Sprites/Pac_mans/Left_open.png"
                 self.surf = pygame.image.load(image).convert_alpha()
                 for r in self.map.walls:
                     if self.rect.colliderect(r):
-                        self.rect.centerx -= amount
+                        self.rect.centerx += amount
                         i = 1
 
     def pac_down(self, s, amount, i):
         if s == "s":
             while i == 0:
                 self.rect.centery += amount
+                self.eat()
                 image = "./Assets/Sprites/Pac_mans/Down_open.png"
                 self.surf = pygame.image.load(image).convert_alpha()
                 for r in self.map.walls:
                     if self.rect.colliderect(r):
-                        self.rect.centery += amount
+                        self.rect.centery -= amount
                         i = 1
-
     def pac_up(self, w, amount, i):
         if w == "w":
             while i == 0:
-                self.rect.centery += amount
+                self.rect.centery -= amount
+                self.eat()
                 image = "./Assets/Sprites/Pac_mans/Up_open.png"
                 self.surf = pygame.image.load(image).convert_alpha()
                 for r in self.map.walls:
                     if self.rect.colliderect(r):
-                        self.rect.centery -= amount
+                        self.rect.centery += amount
                         i = 1
 
     def move_pacman(self, kd, i):
@@ -80,7 +88,3 @@ class Pac_man(pygame.sprite.Sprite):
 
     def chomp(self):
         pygame.mixer.Sound.play(self.chompSound)
-
-    def eat(self):
-        if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
-            self.chomp()
