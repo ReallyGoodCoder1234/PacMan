@@ -1,3 +1,4 @@
+from ast import Pass
 from ScreenType import ScreenType
 import pygame
 
@@ -18,7 +19,7 @@ class Pac_man(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert_alpha()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(
-            center = (280,470)
+            center = (280,465)
         )
         self.speed = 1
         screen.blit(self.surf,self.rect)
@@ -70,11 +71,15 @@ class Pac_man(pygame.sprite.Sprite):
             self.dic["top"] = False
 
     def move_pacman(self, kd):
+        if len(pygame.sprite.spritecollide(self, self.map.walls, False)) == 0:
+            self.pac_right(kd, 5)
+            self.pac_left(kd, 5)
+            self.pac_up(kd, 5)
+            self.pac_down(kd, 5)
+        
+        else:
+            
 
-        self.pac_right(kd, 5)
-        self.pac_left(kd, 5)
-        self.pac_up(kd, 5)
-        self.pac_down(kd, 5)
 
 
     def kill_pacman(surface,sound,ghost):
