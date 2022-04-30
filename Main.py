@@ -20,6 +20,7 @@ pygame.init()
 sw = 560
 sh = 620
 screen = pygame.display.set_mode((sw,sh))
+i = 0
 
 #Wall
 MapC = MapCreator()
@@ -114,7 +115,7 @@ while running:
                 key = "s"
             else:
                 key = ""
-            pac_man.move_pacman(key)
+            pac_man.move_pacman(key, i)
 
     screen.fill((0, 0, 0))
 

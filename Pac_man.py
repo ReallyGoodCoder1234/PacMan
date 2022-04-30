@@ -25,59 +25,55 @@ class Pac_man(pygame.sprite.Sprite):
         screen.blit(self.surf,self.rect)
         self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
 
-    def pac_right(self, d, amount):
-        if self.dic["right"] == True:
-            if d == "d":
+    def pac_right(self, d, amount, i):
+        if d == "d":
+            while i == 0:
                 self.rect.centerx += amount
-                for r in self.map.walls:
-                    if self.rect.colliderect(r):
-                        self.rect.centerx -= amount
-                        break
                 image = "./Assets/Sprites/Pac_mans/Right_open.png"
                 self.surf = pygame.image.load(image).convert_alpha()
-        else:
-            self.dic["right"] = False
-    def pac_left(self, a, amount):
-        if self.dic["left"] == True:
-            if a == "a":
-                self.rect.centerx -= amount
                 for r in self.map.walls:
                     if self.rect.colliderect(r):
                         self.rect.centerx += amount
-                        break                
+                        i = 1
+
+    def pac_left(self, a, amount, i):
+        if a == "a":
+            while i == 0:
+                self.rect.centerx -= amount
                 image = "./Assets/Sprites/Pac_mans/Left_open.png"
                 self.surf = pygame.image.load(image).convert_alpha()
-        else:
-            self.dic["left"] = False
-    def pac_down(self, s, amount):
-        if self.dic["bottom"] == True:
-            if s == "s":
+                for r in self.map.walls:
+                    if self.rect.colliderect(r):
+                        self.rect.centerx -= amount
+                        i = 1
+
+    def pac_down(self, s, amount, i):
+        if s == "s":
+            while i == 0:
                 self.rect.centery += amount
+                image = "./Assets/Sprites/Pac_mans/Down_open.png"
+                self.surf = pygame.image.load(image).convert_alpha()
+                for r in self.map.walls:
+                    if self.rect.colliderect(r):
+                        self.rect.centery += amount
+                        i = 1
+
+    def pac_up(self, w, amount, i):
+        if w == "w":
+            while i == 0:
+                self.rect.centery += amount
+                image = "./Assets/Sprites/Pac_mans/Up_open.png"
+                self.surf = pygame.image.load(image).convert_alpha()
                 for r in self.map.walls:
                     if self.rect.colliderect(r):
                         self.rect.centery -= amount
-                        break
-                image = "./Assets/Sprites/Pac_mans/Down_open.png"
-                self.surf = pygame.image.load(image).convert_alpha()
-        else:
-            self.dic["bottom"] = False
-    def pac_up(self, w, amount):
-        if w == "w":
-            self.rect.centery -= amount
-            for r in self.map.walls:
-                if self.rect.colliderect(r):
-                    self.rect.centery += amount
-                    break
-            image = "./Assets/Sprites/Pac_mans/Up_open.png"
-            self.surf = pygame.image.load(image).convert_alpha()
-        else:
-            self.dic["top"] = False
+                        i = 1
 
-    def move_pacman(self, kd):
-        self.pac_right(kd, 5)
-        self.pac_left(kd, 5)
-        self.pac_up(kd, 5)
-        self.pac_down(kd, 5)
+    def move_pacman(self, kd, i):
+        self.pac_right(kd, 1, i)
+        self.pac_left(kd, 1, i)
+        self.pac_up(kd, 1, i)
+        self.pac_down(kd, 1, i)
 
     def kill_pacman(surface,sound,ghost):
         pass
