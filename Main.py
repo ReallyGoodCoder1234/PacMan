@@ -180,7 +180,7 @@ while running:
         screen.blit(main_menu_background,(0,0))
         credits_text = text_font.render('All credits go to:', True, (0,0,0),(255,255,255))
         credits_text_2 = text_font.render('ReallyGoodCoder1234', True, (0,0,0),(255,255,200))
-        credits_text_3 = text_font.render('really MysteryCoder', True, (0,0,0),(255,255,100))
+        credits_text_3 = text_font.render('MysteryCoder', True, (0,0,0),(255,255,100))
         credits_text_rect = credits_text.get_rect()
         credits_text_rect.center = (sw // 2, 275)
         screen.blit(credits_text, credits_text_rect)
