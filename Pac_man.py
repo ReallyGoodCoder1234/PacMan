@@ -24,15 +24,6 @@ class Pac_man(pygame.sprite.Sprite):
         self.speed = 1
         screen.blit(self.surf,self.rect)
         self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
-        self.wallsdic = {}
-
-    def check_wall(self, i):
-        for x in self.map.walls:
-            self.wallsdic[i] = x.rect
-            i += 1
-        while self.rect.collidedict(self.wallsdic, 1) != None:
-            print(self.rect.collidedict(self.wallsdic, 1 ))
-
             
 
 
@@ -78,6 +69,7 @@ class Pac_man(pygame.sprite.Sprite):
             self.pac_down(kd, 5)
         
         else:
+            pass
             
 
 
