@@ -29,7 +29,7 @@ class Pac_man(pygame.sprite.Sprite):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
             self.chomp()
 
-    def pac_right(self, d, amount, i):
+    def pac_right(self, d, amount, i, move):
         if d == "d":
             while i == 0:
                 self.rect.centerx += amount
@@ -40,9 +40,10 @@ class Pac_man(pygame.sprite.Sprite):
                     if self.rect.colliderect(r):
                         self.rect.centerx -= amount
                         i = 1
+                pygame.time.set_timer(move, 500)
 
 
-    def pac_left(self, a, amount, i):
+    def pac_left(self, a, amount, i, move):
         if a == "a":
             while i == 0:
                 self.rect.centerx -= amount
@@ -53,8 +54,9 @@ class Pac_man(pygame.sprite.Sprite):
                     if self.rect.colliderect(r):
                         self.rect.centerx += amount
                         i = 1
+                pygame.time.set_timer(move, 500)
 
-    def pac_down(self, s, amount, i):
+    def pac_down(self, s, amount, i, move):
         if s == "s":
             while i == 0:
                 self.rect.centery += amount
@@ -65,7 +67,9 @@ class Pac_man(pygame.sprite.Sprite):
                     if self.rect.colliderect(r):
                         self.rect.centery -= amount
                         i = 1
-    def pac_up(self, w, amount, i):
+                pygame.time.set_timer(move, 500)
+
+    def pac_up(self, w, amount, i, move):
         if w == "w":
             while i == 0:
                 self.rect.centery -= amount
@@ -76,12 +80,13 @@ class Pac_man(pygame.sprite.Sprite):
                     if self.rect.colliderect(r):
                         self.rect.centery += amount
                         i = 1
+                pygame.time.set_timer(move, 500)
 
-    def move_pacman(self, kd, i):
-        self.pac_right(kd, 1, i)
-        self.pac_left(kd, 1, i)
-        self.pac_up(kd, 1, i)
-        self.pac_down(kd, 1, i)
+    def move_pacman(self, kd, i, move):
+        self.pac_right(kd, 1, i, move)
+        self.pac_left(kd, 1, i, move)
+        self.pac_up(kd, 1, i, move)
+        self.pac_down(kd, 1, i, move)
 
     def kill_pacman(surface,sound,ghost):
         pass
