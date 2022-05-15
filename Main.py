@@ -36,14 +36,8 @@ ADDGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDGHOST, 1200)
 RELEASEGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(RELEASEGHOST, 5500)
-CREATEP = pygame.USEREVENT + 2
-pygame.time.set_timer(CREATEP, 1)
-MOVEP = pygame.USEREVENT + 3
-movep = MOVEP
 
 # Pac man
-xxx = 1598 // 2
-xxxx = sh - 100
 pac_man = Pac_man(sh,sw,screen, MapC)
 
 # Fonts
@@ -101,23 +95,21 @@ while running:
         #Create Ghost
         elif event.type == ADDGHOST and screenType == ScreenType.Play:
             ghost_manager.createGhost()
-        
-        elif event.type == CREATEP and screenType == ScreenType.Play:
-            #MapC.draw_walls(screen, 20)
-            pass
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                key = "a"
-            elif event.key == pygame.K_d:
-                key = "d"
-            elif event.key == pygame.K_w:
-                key = "w"
-            elif event.key == pygame.K_s:
-                key = "s"
-            else:
-                key = ""
-            pac_man.move_pacman(key, i, movep)
+            if i == 1:
+                if event.key == pygame.K_a:
+                    pac_man.direction = "left"
+                    i = 0
+                if event.key == pygame.K_d:
+                    pac_man.direction = "right"
+                    i = 0
+                if event.key == pygame.K_w:
+                    pac_man.direction = "up"
+                    i = 0
+                if event.key == pygame.K_s:
+                    pac_man.direction = "down"
+                    i = 0
 
     screen.fill((0, 0, 0))
 
@@ -216,8 +208,12 @@ while running:
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
+        pac_man.move_pacman()
+        for r in pac_man.map.walls:
+            if pac_man.rect.colliderect(r):
+                i = 1
         screen.blit(pac_man.surf,pac_man.rect)
 
     #Update
     pygame.display.flip()
-    pygame.time.Clock().tick(120)
+    pygame.time.Clock().tick(240)
