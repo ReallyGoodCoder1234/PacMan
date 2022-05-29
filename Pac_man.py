@@ -1,4 +1,5 @@
 import pygame
+import GLOBABAL
 
 from pygame.locals import (RLEACCEL)
 
@@ -6,6 +7,7 @@ from pygame.locals import (RLEACCEL)
 class Pac_man(pygame.sprite.Sprite):
     def __init__(self, maxHeight, maxWidth, screen, map):
         self.direction = "right"
+        self.collides = {"up":False, "down":False, "left":False, "right":False}
         self.map = map
         self.maxHeight = maxHeight
         self.maxWidth = maxWidth
@@ -23,52 +25,71 @@ class Pac_man(pygame.sprite.Sprite):
     def eat(self):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
             self.chomp()
+            GLOBABAL.score += 10
+
 
     def pac_right(self, amount):
-        self.rect.centerx += amount
-        image = "./Assets/Sprites/Pac_mans/Right_open.png"
-        self.surf = pygame.image.load(image).convert_alpha()
-        self.eat()
-        for r in self.map.walls:
-            if self.rect.colliderect(r):
-                self.rect.centerx -= amount
+        if self.collides.get("right") == False:
+            self.rect.centerx += amount
+            image = "./Assets/Sprites/Pac_mans/Right_open.png"
+            self.surf = pygame.image.load(image).convert_alpha()
+            self.eat()
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centerx -= amount
+                    self.collides.update({"right": True})
+            self.collides.update({"right": False})
+        
 
 
     def pac_left(self, amount):
-        self.rect.centerx -= amount
-        self.eat()
-        image = "./Assets/Sprites/Pac_mans/Left_open.png"
-        self.surf = pygame.image.load(image).convert_alpha()
-        for r in self.map.walls:
-            if self.rect.colliderect(r):
-                self.rect.centerx += amount
+        if self.collides.get("left") == False:
+            self.rect.centerx -= amount
+            self.eat()
+            image = "./Assets/Sprites/Pac_mans/Left_open.png"
+            self.surf = pygame.image.load(image).convert_alpha()
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centerx += amount
+                    self.collides.update({"left": True})
+            self.collides.update({"left": False})
+            
 
     def pac_down(self, amount):
-        self.rect.centery += amount
-        self.eat()
-        image = "./Assets/Sprites/Pac_mans/Down_open.png"
-        self.surf = pygame.image.load(image).convert_alpha()
-        for r in self.map.walls:
-            if self.rect.colliderect(r):
-                self.rect.centery -= amount
+        if self.collides.get("down") == False:
+            self.rect.centery += amount
+            self.eat()
+            image = "./Assets/Sprites/Pac_mans/Down_open.png"
+            self.surf = pygame.image.load(image).convert_alpha()
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centery -= amount
+                    self.collides.update({"down": True})
+            self.collides.update({"down": False})
+
 
     def pac_up(self, amount):
-        self.rect.centery -= amount
-        self.eat()
-        image = "./Assets/Sprites/Pac_mans/Up_open.png"
-        self.surf = pygame.image.load(image).convert_alpha()
-        for r in self.map.walls:
-            if self.rect.colliderect(r):
-                self.rect.centery += amount
+        if self.collides.get("up") == False:
+            self.rect.centery -= amount
+            self.eat()
+            image = "./Assets/Sprites/Pac_mans/Up_open.png"
+            self.surf = pygame.image.load(image).convert_alpha()
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centery += amount
+                    self.collides.update({"up": True})
+            self.collides.update({"up": False})
+
+
 
     def move_pacman(self):
         if self.direction == "right":
             self.pac_right(3)
-        elif self.direction == "left":
+        if self.direction == "left":
             self.pac_left(3)
-        elif self.direction == "up":
+        if self.direction == "up":
             self.pac_up(3)
-        elif self.direction == "down":
+        if self.direction == "down":
             self.pac_down(3)
 
     def kill_pacman(surface,sound,ghost):

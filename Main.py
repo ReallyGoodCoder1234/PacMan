@@ -2,6 +2,7 @@ import pygame, sys, random
 from pygame.cursors import tri_left
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL,K_ESCAPE,KEYDOWN)
 from pygame import mixer
+import GLOBABAL
 
 from Buttons import Button
 from Ghost import Ghost
@@ -20,7 +21,7 @@ pygame.init()
 sw = 560
 sh = 620
 screen = pygame.display.set_mode((sw,sh))
-i = 0
+collided = False
 
 #Wall
 MapC = MapCreator()
@@ -97,20 +98,14 @@ while running:
             ghost_manager.createGhost()
 
         if event.type == pygame.KEYDOWN:
-            if i == 1:
-                if event.key == pygame.K_a:
-                    pac_man.direction = "left"
-                    i = 0
-                if event.key == pygame.K_d:
-                    pac_man.direction = "right"
-                    i = 0
-                if event.key == pygame.K_w:
-                    pac_man.direction = "up"
-                    i = 0
-                if event.key == pygame.K_s:
-                    pac_man.direction = "down"
-                    i = 0
-
+            if event.key == pygame.K_a and pac_man.collides.get("left") == False:
+                pac_man.direction = "left"
+            if event.key == pygame.K_d and pac_man.collides.get("right") == False:
+                pac_man.direction = "right"
+            if event.key == pygame.K_w and pac_man.collides.get("up") == False:
+                pac_man.direction = "up"
+            if event.key == pygame.K_s and pac_man.collides.get("down") == False:
+                pac_man.direction = "down"
     screen.fill((0, 0, 0))
 
     #Screen Text
@@ -209,10 +204,11 @@ while running:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
         pac_man.move_pacman()
-        for r in pac_man.map.walls:
-            if pac_man.rect.colliderect(r):
-                i = 1
         screen.blit(pac_man.surf,pac_man.rect)
+        score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
+        score_text_rect = score_text.get_rect()
+        score_text_rect.center = (10, 10)
+        screen.blit(score_text, score_text_rect)
 
     #Update
     pygame.display.flip()
