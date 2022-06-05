@@ -10,7 +10,7 @@ class GhostManager(pygame.sprite.Sprite):
         self.maxHeight = maxHeight
         self.maxWidth = maxWidth
 
-    def createGhost(self):
+    def createGhost(self, map):
         # only create max to 4 ghosts
         if len(self.ghosts) >= 4:
             return
@@ -22,7 +22,7 @@ class GhostManager(pygame.sprite.Sprite):
             if len(existing) == 0:
                 break
 
-        ghost = Ghost(name, (random.randint(0, self.maxHeight), random.randint(0, self.maxWidth)), self.maxHeight, self.maxWidth)
+        ghost = Ghost(name, (220,225), self.maxHeight, self.maxWidth, map)
         self.ghosts.add(ghost)
         return ghost
     

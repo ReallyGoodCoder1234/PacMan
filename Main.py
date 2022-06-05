@@ -95,7 +95,7 @@ while running:
            sys.exit()
         #Create Ghost
         elif event.type == ADDGHOST and screenType == ScreenType.Play:
-            ghost_manager.createGhost()
+            ghost_manager.createGhost(MapC)
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a and pac_man.collides.get("left") == False:
@@ -186,7 +186,7 @@ while running:
         screen.blit(credits_title, credits_title_rect)
         escape_button.draw(screen)
         pac_man_text = big_font.render('PAC-MAN', True, (0,0,0), (0,255,0))
-        pac_man_text_rect = pac_man_text.get_rect()
+        pac_man_text_rect = pac_man_text.gwet_rect()
         pac_man_text_rect.center = (sw // 2, 470)
         screen.blit(pac_man_text, pac_man_text_rect)
         pygame.display.set_caption('Credits')
@@ -203,12 +203,24 @@ while running:
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)
         all_ghosts.update()
-        pac_man.move_pacman()
-        screen.blit(pac_man.surf,pac_man.rect)
+        if pac_man.killed == False:
+            pac_man.move_pacman()
+            pac_man.kill_pacman(all_ghosts)
+            screen.blit(pac_man.surf,pac_man.rect)
         score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
         score_text_rect = score_text.get_rect()
-        score_text_rect.center = (10, 10)
+        score_text_rect.center = (15, 10)
         screen.blit(score_text, score_text_rect)
+        if pac_man.killed == True:
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png")
+            pygame.time.wait(100)
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_1.png")
+            pygame.time.wait(100)
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_2.png")
+            pygame.time.wait(100)
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/Screen Shot 2022-06-05 at 8.02.40 pm.png")
+            pygame.time.wait(2000)
+            pac_man = Pac_man(sh,sw,screen, MapC)
 
     #Update
     pygame.display.flip()
