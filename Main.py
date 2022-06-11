@@ -207,7 +207,7 @@ while running:
         screen.blit(pac_man.surf,pac_man.rect)
         score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
         score_text_rect = score_text.get_rect()
-        score_text_rect.center = (10, 10)
+        score_text_rect.center = (20, 10)
         screen.blit(score_text, score_text_rect)
 
     #Update
