@@ -6,7 +6,7 @@ class Ghost(pygame.sprite.Sprite):
     directions = [Direction.Forward, Direction.Backward, Direction.Up, Direction.Down]
     directionImage = ["right", "left", "forward", "forward"]
 
-    def __init__(self, name, pos, maxHeight, maxWidth):
+    def __init__(self, name, pos, maxHeight, maxWidth, map):
         self.name = name
         self.maxHeight = maxHeight
         self.maxWidth = maxWidth
@@ -18,17 +18,34 @@ class Ghost(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(
             center = pos
         )
-        self.speed = 1
+        self.speed = 2
+        self.map = map
 
     def update(self):
         if self.direction == Direction.Forward:
-            self.rect.move_ip(self.speed, 0)
+            self.rect.centerx += self.speed
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centerx -= self.speed
+                    self.direction = random.choice(self.directions)
         elif self.direction == Direction.Backward:
-            self.rect.move_ip(-self.speed, 0)
+            self.rect.centerx -= self.speed
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centerx += self.speed
+                    self.direction = random.choice(self.directions)
         elif self.direction == Direction.Up:
-            self.rect.move_ip(0, -self.speed)
+            self.rect.centery -= self.speed
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centery += self.speed
+                    self.direction = random.choice(self.directions)
         else:
-            self.rect.move_ip(0, self.speed)
+            self.rect.centery += self.speed
+            for r in self.map.walls:
+                if self.rect.colliderect(r):
+                    self.rect.centery -= self.speed
+                    self.direction = random.choice(self.directions)
 
         if self.rect.left <= 0:
             self.direction = Direction.Forward
