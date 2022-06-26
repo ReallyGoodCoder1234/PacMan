@@ -86,19 +86,24 @@ class Pac_man(pygame.sprite.Sprite):
 
     def move_pacman(self):
         if self.direction == "right":
-            self.pac_right(3)
+            self.pac_right(5)
         if self.direction == "left":
-            self.pac_left(3)
+            self.pac_left(5)
         if self.direction == "up":
-            self.pac_up(3)
+            self.pac_up(5)
         if self.direction == "down":
-            self.pac_down(3)
+            self.pac_down(5)
 
     def kill_pacman(self,ghost):
         for x in ghost:
             if self.rect.colliderect(x) == True:
                 pygame.mixer.Sound.play(self.deathSound)
                 self.killed = True
+                if GLOBABAL.lives == 0:
+                    GLOBABAL.game = True
+                else:
+                    GLOBABAL.lives -= 1
+
 
 
     def chomp(self):

@@ -12,6 +12,15 @@ from GhostManager import GhostManager
 from Map import MapCreator
 from pellet import Pellet
 
+"""             pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png")
+            pygame.time.wait(100)
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_1.png")
+            pygame.time.wait(100)
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_2.png")
+            pygame.time.wait(100)
+            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/Screen Shot 2022-06-05 at 8.02.40 pm.png")
+            pygame.time.wait(2000) """
+
 mixer.init()
 mixer.music.load("./Assets/Music/pacman_eatfruit.wav")
 mixer.music.set_volume(100)
@@ -90,7 +99,7 @@ main_menu_background = pygame.transform.scale2x(pygame.image.load("./Assets/Leve
 while running:
     for event in pygame.event.get():
         #Quit
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or GLOBABAL.game == True:
            pygame.quit()
            sys.exit()
         #Create Ghost
@@ -212,15 +221,36 @@ while running:
         score_text_rect.center = (15, 10)
         screen.blit(score_text, score_text_rect)
         if pac_man.killed == True:
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png")
-            pygame.time.wait(100)
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_1.png")
-            pygame.time.wait(100)
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_2.png")
-            pygame.time.wait(100)
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/Screen Shot 2022-06-05 at 8.02.40 pm.png")
-            pygame.time.wait(2000)
             pac_man = Pac_man(sh,sw,screen, MapC)
+        if GLOBABAL.lives == 2:
+            one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
+            one_rect = one.get_rect()
+            one_rect.center = (10, 610)
+            screen.blit(one, one_rect)
+            two = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
+            two_rect = two.get_rect()
+            two_rect.center = (30, 610)
+            screen.blit(two, two_rect)
+            three = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
+            three_rect = three.get_rect()
+            three_rect.center = (50, 610)
+            screen.blit(three, three_rect)
+        if GLOBABAL.lives == 1:
+            one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
+            one_rect = one.get_rect()
+            one_rect.center = (10, 610)
+            screen.blit(one, one_rect)
+            two = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
+            two_rect = two.get_rect()
+            two_rect.center = (30, 610)
+            screen.blit(two, two_rect)
+        if GLOBABAL.lives == 0:
+            one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
+            one_rect = one.get_rect()
+            one_rect.center = (10, 610)
+            screen.blit(one, one_rect)
+            
+
 
     #Update
     pygame.display.flip()
