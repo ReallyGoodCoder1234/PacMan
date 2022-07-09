@@ -44,7 +44,9 @@ all_ghosts = ghost_manager.ghosts
 
 ADDGHOST = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDGHOST, 1200)
-RELEASEGHOST = pygame.USEREVENT + 1
+FLASHGOHST = pygame.USEREVENT + 2
+pygame.time.set_timer(FLASHGOHST, 200)
+RELEASEGHOST = pygame.USEREVENT + 3
 pygame.time.set_timer(RELEASEGHOST, 5500)
 
 # Pac man
@@ -115,6 +117,11 @@ while running:
                 pac_man.direction = "up"
             if event.key == pygame.K_s and pac_man.collides.get("down") == False:
                 pac_man.direction = "down"
+        #Flash Ghost
+        elif event.type == FLASHGOHST and screenType == ScreenType.Play:
+            for entity in all_ghosts:
+                entity.flashImage()
+
     screen.fill((0, 0, 0))
 
     #Screen Text
