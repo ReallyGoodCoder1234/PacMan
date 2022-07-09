@@ -15,9 +15,9 @@ class MapCreator(pygame.sprite.Sprite):
         self.walllist = []
         self.pellets = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
-        self.powers = pygame.sprite.Group()
+        self.power = pygame.sprite.Group()
 
-    def download_level(self, walls, pellets, gate, power):
+    def download_level(self, walls, pellets, power):
         with open(walls) as w:
             for line in w:
                 row = []
@@ -32,12 +32,12 @@ class MapCreator(pygame.sprite.Sprite):
                     row.append(block)
                 self.worldpellet.append(row)
 
-        with open(gate) as g:
-            for line in g:
+        with open(power) as po:
+            for line in po:
                 row = []
                 for block in line:
                     row.append(block)
-                self.worldgate.append(row)
+                self.worldpellet.append(row)
 
     def create_walls(self):
         for y, row in enumerate(self.worldwall):
