@@ -34,7 +34,7 @@ collided = False
 
 #Wall
 MapC = MapCreator()
-MapC.download_level("Wall map.txt", "Pellet map.txt", "gate.txt", "power.txt")
+MapC.download_level("Wall map.txt", "Pellet map.txt", "Power map.txt")
 MapC.create_pellet()
 MapC.create_walls()
 
@@ -249,6 +249,9 @@ while running:
             one_rect = one.get_rect()
             one_rect.center = (10, 610)
             screen.blit(one, one_rect)
+        if GLOBABAL.lives == -1:
+            pygame.quit()
+            sys.exit
             
 
 
