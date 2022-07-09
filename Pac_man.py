@@ -23,6 +23,7 @@ class Pac_man(pygame.sprite.Sprite):
         self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
         self.deathSound = pygame.mixer.Sound("./Assets/Music/pacman_death.wav")
         self.killed = False
+        self.pellet = True
 
     def eat(self):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
@@ -94,16 +95,23 @@ class Pac_man(pygame.sprite.Sprite):
         if self.direction == "down":
             self.pac_down(5)
 
-    def kill_pacman(self,ghost):
-        for x in ghost:
-            if self.rect.colliderect(x) == True:
-                pygame.mixer.Sound.play(self.deathSound)
-                self.killed = True
-                if GLOBABAL.lives == 0:
-                    GLOBABAL.game = True
-                else:
-                    GLOBABAL.lives -= 1
-
+    def kill_pacman(self,ghosts):
+        if self.pellet == False:
+            for x in ghosts:
+                if self.rect.colliderect(x) == True:
+                    pygame.mixer.Sound.play(self.deathSound)
+                    self.killed = True
+                    if GLOBABAL.lives == 0:
+                        GLOBABAL.game = True
+                    else:
+                        GLOBABAL.lives -= 1
+        else:
+            for x in ghosts:
+                if self.rect.colliderect(x) == True:
+                    x.kill()
+                    GLOBABAL.score += GLOBABAL.ghostpoint
+                    GLOBABAL.ghostpoint += 400
+                    
 
 
     def chomp(self):

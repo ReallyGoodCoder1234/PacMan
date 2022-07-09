@@ -1,6 +1,7 @@
 import pygame
 from pellet import Pellet
 from wall import Wall
+from Power import Power
 
 class MapCreator(pygame.sprite.Sprite):
 
@@ -14,8 +15,7 @@ class MapCreator(pygame.sprite.Sprite):
         self.walllist = []
         self.pellets = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
-        self.powerlist = []
-        self.gatelist = []
+        self.powers = pygame.sprite.Group()
 
     def download_level(self, walls, pellets, gate, power):
         with open(walls) as w:
@@ -54,6 +54,14 @@ class MapCreator(pygame.sprite.Sprite):
                 if imageFile:
                     pellet = Pellet(x*20+5, y*20+5)
                     self.pellets.add(pellet)
+
+    def create_power(self):
+        for y, row in enumerate(self.worldpower):
+            for x, block in enumerate(row):
+                imageFile = self.walldic.get(block, None)
+                if imageFile:
+                    power = Power(x*20+5, y*20+5)
+                    self.powers.add(power)
 
     def draw_gate(self, screen, bs):
         self.draw_map(screen, bs, 0, self.worldpower, self.gatelist)
