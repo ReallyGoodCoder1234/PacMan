@@ -1,6 +1,7 @@
 import pygame, sys, random
 from Direction import Direction
 from pygame.locals import (K_DOWN, K_UP, K_UP, K_LEFT, K_RIGHT, K_a, K_d, K_s, K_w, RLEACCEL)
+import GLOBABAL
 
 class Ghost(pygame.sprite.Sprite):
     directions = [Direction.Forward, Direction.Backward, Direction.Up, Direction.Down]
@@ -69,8 +70,8 @@ class Ghost(pygame.sprite.Sprite):
             self.surf = image
 
     def flashImage(self):
-        self.hasImage = not self.hasImage
-        pass
+        if GLOBABAL.cankill == True:
+            self.hasImage = not self.hasImage
 
     def release_ghost():
         pass

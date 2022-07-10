@@ -8,7 +8,7 @@ class Power(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.rect = self.surf.get_rect(
-            center = (x+4, y+4)
+            center = (x, y)
         )
 
     def remove(self, group):

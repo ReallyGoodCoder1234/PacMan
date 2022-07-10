@@ -37,6 +37,7 @@ MapC = MapCreator()
 MapC.download_level("Wall map.txt", "Pellet map.txt", "Power map.txt")
 MapC.create_pellet()
 MapC.create_walls()
+MapC.create_power()
 
 #Ghost
 ghost_manager = GhostManager(598, 1598)
@@ -215,6 +216,9 @@ while running:
         for spr in pac_man.map.pellets:
             screen.blit(spr.surf, spr.rect)
         pac_man.map.pellets.update()
+        for spr in pac_man.map.powers:
+            screen.blit(spr.surf, spr.rect)
+        pac_man.map.powers.update()
         #Draw all ghosts
         for entity in all_ghosts:
             screen.blit(entity.surf, entity.rect)

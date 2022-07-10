@@ -28,7 +28,7 @@ class Pac_man(pygame.sprite.Sprite):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
             self.chomp()
             GLOBABAL.score += 10
-        if len(pygame.sprite.spritecollide(self, self.map.power, True)) > 0:
+        if len(pygame.sprite.spritecollide(self, self.map.powers, True)) > 0:
             self.chomp()
             GLOBABAL.cankill = True
 

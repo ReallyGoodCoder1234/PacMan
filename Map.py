@@ -11,11 +11,11 @@ class MapCreator(pygame.sprite.Sprite):
         self.worldpower = []
         self.worldgate = []
         
-        self.walldic = {'.': "./Assets/Levels_and_backgrounds/Pellet.png", '=': "./Assets/Levels_and_backgrounds/Wall.png", '*': './Assets/Levels_and_backgrounds/Power_Pellet.png', '-': './Assets/Levels_and_backgrounds/Door.png'}
+        self.walldic = {'.': "./Assets/Levels_and_backgrounds/Pellet.png", '=': "./Assets/Levels_and_backgrounds/Wall.png", '>': './Assets/Levels_and_backgrounds/Power_Pellet.png'}
         self.walllist = []
         self.pellets = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
-        self.power = pygame.sprite.Group()
+        self.powers = pygame.sprite.Group()
 
     def download_level(self, walls, pellets, power):
         with open(walls) as w:
@@ -37,7 +37,7 @@ class MapCreator(pygame.sprite.Sprite):
                 row = []
                 for block in line:
                     row.append(block)
-                self.worldpellet.append(row)
+                self.worldpower.append(row)
 
     def create_walls(self):
         for y, row in enumerate(self.worldwall):
@@ -62,9 +62,7 @@ class MapCreator(pygame.sprite.Sprite):
                 if imageFile:
                     power = Power(x*20+5, y*20+5)
                     self.powers.add(power)
-
-    def draw_gate(self, screen, bs):
-        self.draw_map(screen, bs, 0, self.worldpower, self.gatelist)
+                    print(imageFile)
 
     def draw_map(self, screen, bs, offset, objectMap, objectList):
         for y, row in enumerate(objectMap):
@@ -74,3 +72,5 @@ class MapCreator(pygame.sprite.Sprite):
                     image = pygame.image.load(imageFile)
                     screen.blit(image, (x*bs+offset, y*bs+offset))
                     objectList.append(image)
+                    if imageFile == './Assets/Levels_and_backgrounds/Power_Pellet.png':
+                        print("Hallo")
