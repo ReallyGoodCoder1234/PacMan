@@ -214,7 +214,8 @@ while running:
         for spr in pac_man.map.walls:
             screen.blit(spr.surf, spr.rect)
         pac_man.map.walls.update()
-        draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
+        if GLOBABAL.lives > 0:
+            draw_background("./Assets/Levels_and_backgrounds/Pac_man_maze.png",sw,sh)
         for spr in pac_man.map.pellets:
             screen.blit(spr.surf, spr.rect)
         pac_man.map.pellets.update()
@@ -233,6 +234,11 @@ while running:
         score_text_rect = score_text.get_rect()
         score_text_rect.center = (280, 10)
         screen.blit(score_text, score_text_rect)
+        if GLOBABAL.cankill == True:
+            seconds = (pygame.time.get_ticks()-pac_man.tick)/1000
+            if seconds >= 10:
+                GLOBABAL.cankill = False
+
         if GLOBABAL.lives == 0:
             game_text = text_font.render("GAME OVER", True, (0,0,0), (0,255,0))
             game_text_rect = game_text.get_rect()
@@ -241,6 +247,7 @@ while running:
             MapC.pellets.empty()
             MapC.walls.empty()
             MapC.powers.empty()
+            all_ghosts.empty()
         if pac_man.killed == True:
             pac_man = Pac_man(sh,sw,screen, MapC)
         if GLOBABAL.lives == 3:

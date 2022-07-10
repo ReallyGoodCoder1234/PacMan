@@ -23,6 +23,7 @@ class Pac_man(pygame.sprite.Sprite):
         self.chompSound = pygame.mixer.Sound("./Assets/Music/pacman_chomp.wav")
         self.deathSound = pygame.mixer.Sound("./Assets/Music/pacman_death.wav")
         self.killed = False
+        self.tick = 0
 
     def eat(self):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
@@ -31,6 +32,7 @@ class Pac_man(pygame.sprite.Sprite):
         if len(pygame.sprite.spritecollide(self, self.map.powers, True)) > 0:
             self.chomp()
             GLOBABAL.cankill = True
+            self.tick = pygame.time.get_ticks()
 
 
     def pac_right(self, amount):
