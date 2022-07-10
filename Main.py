@@ -10,7 +10,6 @@ from Pac_man import Pac_man
 from ScreenType import ScreenType
 from GhostManager import GhostManager
 from Map import MapCreator
-from pellet import Pellet
 
 """             pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png")
             pygame.time.wait(100)
@@ -49,6 +48,7 @@ FLASHGOHST = pygame.USEREVENT + 2
 pygame.time.set_timer(FLASHGOHST, 200)
 RELEASEGHOST = pygame.USEREVENT + 3
 pygame.time.set_timer(RELEASEGHOST, 5500)
+KILLBOY = pygame.USEREVENT + 4
 
 # Pac man
 pac_man = Pac_man(sh,sw,screen, MapC)
@@ -120,6 +120,8 @@ while running:
                 pac_man.direction = "down"
         #Flash Ghost
         elif event.type == FLASHGOHST and screenType == ScreenType.Play:
+            if GLOBABAL.cankill == True:
+                pass
             for entity in all_ghosts:
                 entity.flashImage()
 
@@ -147,7 +149,7 @@ while running:
         how_text_level_5 = text_font.render('The s makes you move down.', True, (0,0,0),(255,255,255))
         how_text_level_6 = text_font.render('You cannot go through walls.', True, (0,0,0),(255,255,255))
         how_text_level_7 = text_font.render('You also cannot eat ghosts unless', True, (0,0,0),(255,255,255))
-        how_text_level_8 = text_font.render('you have eaten a flashing pink dot', True, (0,0,0),(255,255,255))
+        how_text_level_8 = text_font.render('you have eaten a big yellow dot', True, (0,0,0),(255,255,255))
         how_text_level_9 = big_font.render('HOW TO PLAY', True, (0,0,0), (0,255,0))
         how_text_level_10 = big_font.render('PAC-MAN', True, (0,0,0), (0,255,0))
         how_text_rect_9 = how_text_level_9.get_rect()
@@ -203,7 +205,7 @@ while running:
         screen.blit(credits_title, credits_title_rect)
         escape_button.draw(screen)
         pac_man_text = big_font.render('PAC-MAN', True, (0,0,0), (0,255,0))
-        pac_man_text_rect = pac_man_text.gwet_rect()
+        pac_man_text_rect = pac_man_text.get_rect()
         pac_man_text_rect.center = (sw // 2, 470)
         screen.blit(pac_man_text, pac_man_text_rect)
         pygame.display.set_caption('Credits')
@@ -229,11 +231,19 @@ while running:
             screen.blit(pac_man.surf,pac_man.rect)
         score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
         score_text_rect = score_text.get_rect()
-        score_text_rect.center = (20, 10)
+        score_text_rect.center = (280, 10)
         screen.blit(score_text, score_text_rect)
+        if GLOBABAL.lives == 0:
+            game_text = text_font.render("GAME OVER", True, (0,0,0), (0,255,0))
+            game_text_rect = game_text.get_rect()
+            game_text_rect.center = (280, 310)
+            screen.blit(score_text, score_text_rect)
+            MapC.pellets.empty()
+            MapC.walls.empty()
+            MapC.powers.empty()
         if pac_man.killed == True:
             pac_man = Pac_man(sh,sw,screen, MapC)
-        if GLOBABAL.lives == 2:
+        if GLOBABAL.lives == 3:
             one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
             one_rect = one.get_rect()
             one_rect.center = (10, 610)
@@ -246,7 +256,7 @@ while running:
             three_rect = three.get_rect()
             three_rect.center = (50, 610)
             screen.blit(three, three_rect)
-        if GLOBABAL.lives == 1:
+        if GLOBABAL.lives == 2:
             one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
             one_rect = one.get_rect()
             one_rect.center = (10, 610)
@@ -255,14 +265,11 @@ while running:
             two_rect = two.get_rect()
             two_rect.center = (30, 610)
             screen.blit(two, two_rect)
-        if GLOBABAL.lives == 0:
+        if GLOBABAL.lives == 1:
             one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
             one_rect = one.get_rect()
             one_rect.center = (10, 610)
             screen.blit(one, one_rect)
-        if GLOBABAL.lives == -1:
-            pygame.quit()
-            sys.exit
             
 
 
