@@ -98,18 +98,18 @@ class Pac_man(pygame.sprite.Sprite):
             self.pac_down(5)
 
     def kill_pacman(self,ghosts):
-        for x in ghosts:
-            if self.rect.colliderect(x) == True:
-                pygame.mixer.Sound.play(self.deathSound)
-                self.killed = True
-                GLOBABAL.lives -= 1
-            else:
-                if GLOBABAL.cankill == True:
-                 for x in ghosts:
-                        if self.rect.colliderect(x) == True:
-                            x.kill()
-                            GLOBABAL.score += GLOBABAL.ghostpoint
-                            GLOBABAL.ghostpoint += 400
+        if GLOBABAL.cankill == False:
+            for x in ghosts:
+                if self.rect.colliderect(x) == True:
+                    pygame.mixer.Sound.play(self.deathSound)
+                    self.killed = True
+                    GLOBABAL.lives -= 1
+        else:
+            for x in ghosts:
+                if self.rect.colliderect(x) == True:
+                    x.kill()
+                    GLOBABAL.score += GLOBABAL.ghostpoint
+                    GLOBABAL.ghostpoint += 200
                     
 
 
