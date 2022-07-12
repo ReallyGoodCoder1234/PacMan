@@ -11,14 +11,7 @@ from ScreenType import ScreenType
 from GhostManager import GhostManager
 from Map import MapCreator
 
-"""             pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png")
-            pygame.time.wait(100)
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_1.png")
-            pygame.time.wait(100)
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_2.png")
-            pygame.time.wait(100)
-            pac_man.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/Screen Shot 2022-06-05 at 8.02.40 pm.png")
-            pygame.time.wait(2000) """
+
 
 mixer.init()
 mixer.music.load("./Assets/Music/pacman_eatfruit.wav")
@@ -228,26 +221,30 @@ while running:
         all_ghosts.update()
         if pac_man.killed == False:
             pac_man.move_pacman()
-            pac_man.kill_pacman(all_ghosts)
+            pac_man.kill_pacman(all_ghosts, screen)
             screen.blit(pac_man.surf,pac_man.rect)
-        score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
-        score_text_rect = score_text.get_rect()
-        score_text_rect.center = (280, 10)
-        screen.blit(score_text, score_text_rect)
+        if GLOBABAL.lives > 0:
+            score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
+            score_text_rect = score_text.get_rect()
+            score_text_rect.center = (280, 10)
+            screen.blit(score_text, score_text_rect)
         if GLOBABAL.cankill == True:
             seconds = (pygame.time.get_ticks()-pac_man.tick)/1000
             if seconds >= 10:
                 GLOBABAL.cankill = False
+                for x in all_ghosts:
+                    x.hasImage = True
 
         if GLOBABAL.lives == 0:
             game_text = text_font.render("GAME OVER", True, (0,0,0), (0,255,0))
             game_text_rect = game_text.get_rect()
             game_text_rect.center = (280, 310)
-            screen.blit(score_text, score_text_rect)
+            screen.blit(game_text, game_text_rect)
             MapC.pellets.empty()
             MapC.walls.empty()
             MapC.powers.empty()
             all_ghosts.empty()
+            quit_button.draw(screen)
         if pac_man.killed == True:
             pac_man = Pac_man(sh,sw,screen, MapC)
         if GLOBABAL.lives == 3:

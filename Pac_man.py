@@ -24,6 +24,27 @@ class Pac_man(pygame.sprite.Sprite):
         self.deathSound = pygame.mixer.Sound("./Assets/Music/pacman_death.wav")
         self.killed = False
         self.tick = 0
+        self.CONTINUE1 = False
+        self.CONTINUE2 = False
+        self.CONTINUE3 = False
+
+    def death_anime(self, s):
+        self.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png").convert_alpha()
+        s.blit(self.surf, self.rect)
+        pygame.display.update()
+        pygame.time.wait(500)
+        self.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_1.png").convert_alpha()
+        s.blit(self.surf, self.rect)
+        pygame.display.update()
+        pygame.time.wait(500)
+        self.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_2.png").convert_alpha()
+        s.blit(self.surf, self.rect)
+        pygame.display.update()
+        pygame.time.wait(500)
+        self.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/Screen Shot 2022-06-05 at 8.02.40 pm.png").convert_alpha()
+        s.blit(self.surf, self.rect)
+        pygame.display.update()
+        pygame.time.wait(2000)
 
     def eat(self):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
@@ -99,11 +120,13 @@ class Pac_man(pygame.sprite.Sprite):
         if self.direction == "down":
             self.pac_down(5)
 
-    def kill_pacman(self,ghosts):
+    def kill_pacman(self,ghosts, s):
         if GLOBABAL.cankill == False:
             for x in ghosts:
                 if self.rect.colliderect(x) == True:
+                    self.CONTINUE1 = True
                     pygame.mixer.Sound.play(self.deathSound)
+                    self.death_anime(s)
                     self.killed = True
                     GLOBABAL.lives -= 1
         else:
