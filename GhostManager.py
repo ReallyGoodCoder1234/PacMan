@@ -15,14 +15,7 @@ class GhostManager(pygame.sprite.Sprite):
         if len(self.ghosts) >= 4:
             return
         
-        # do not create with same color
-        while True:
-            name = random.choice(self.name_list)
-            existing = [n for n in self.ghosts.sprites() if n.name == name]
-            if len(existing) == 0:
-                break
-
-        ghost = Ghost(name, (220,225), self.maxHeight, self.maxWidth, map)
+        ghost = Ghost((220,225), self.maxHeight, self.maxWidth, map)
         self.ghosts.add(ghost)
         return ghost
     
