@@ -51,6 +51,7 @@ text_font = pygame.font.Font(None,30)
 big_font = pygame.font.Font(None, 50)
 bigger_font = pygame.font.Font(None, 100)
 giant_font = pygame.font.Font(None, 200)
+game_font = pygame.font.Font(None, 70)
 
 #Screens
 running = True
@@ -244,8 +245,25 @@ while running:
                 for x in all_ghosts:
                     x.hasImage = True
         
-
-        if GLOBABAL.lives == 0:
+        if GLOBABAL.score == 5220:
+            game_text = game_font.render("VICTORY IS SECURED", True, (255,255,255), (203,197,198))
+            game_text_rect = game_text.get_rect()
+            game_text_rect.center = (280, 310)
+            screen.blit(game_text, game_text_rect)
+            game_text1 = big_font.render("The robots have retreated", True, (255,255,255), (203,197,198))
+            game_text1_rect = game_text.get_rect()
+            game_text1_rect.center = (350, 380)
+            screen.blit(game_text1, game_text1_rect)
+            game_text2 = text_font.render("You live to fight another day", True, (255,255,255), (203,197,198))
+            game_text2_rect = game_text.get_rect()
+            game_text2_rect.center = (500, 450)
+            screen.blit(game_text2, game_text2_rect)
+            MapC.pellets.empty()
+            MapC.walls.empty()
+            MapC.powers.empty()
+            all_ghosts.empty()
+            quit_button.draw(screen)
+        elif GLOBABAL.lives == 0:
             game_text = big_font.render("GAME OVER", True, (255,255,255), (203,197,198))
             game_text_rect = game_text.get_rect()
             game_text_rect.center = (280, 310)
@@ -259,9 +277,9 @@ while running:
             MapC.powers.empty()
             all_ghosts.empty()
             quit_button.draw(screen)
-        if pac_man.killed == True:
+        elif pac_man.killed == True:
             pac_man = Pac_man(sh,sw,screen, MapC)
-        if GLOBABAL.lives == 3:
+        elif GLOBABAL.lives == 3:
             one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
             one_rect = one.get_rect()
             one_rect.center = (10, 610)
@@ -274,7 +292,7 @@ while running:
             three_rect = three.get_rect()
             three_rect.center = (50, 610)
             screen.blit(three, three_rect)
-        if GLOBABAL.lives == 2:
+        elif GLOBABAL.lives == 2:
             one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
             one_rect = one.get_rect()
             one_rect.center = (10, 610)
@@ -283,7 +301,7 @@ while running:
             two_rect = two.get_rect()
             two_rect.center = (30, 610)
             screen.blit(two, two_rect)
-        if GLOBABAL.lives == 1:
+        elif GLOBABAL.lives == 1:
             one = pygame.image.load("./Assets/Sprites/Pac_mans/Right_open.png")
             one_rect = one.get_rect()
             one_rect.center = (10, 610)

@@ -135,7 +135,7 @@ class Pac_man(pygame.sprite.Sprite):
                 if self.rect.colliderect(x) == True:
                     x.kill()
                     GLOBABAL.score += GLOBABAL.ghostpoint
-                    GLOBABAL.ghostpoint += 200
+                    GLOBABAL.ghostpoint += GLOBABAL.ghostpoint
                     
 
 

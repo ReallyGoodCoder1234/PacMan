@@ -1,5 +1,5 @@
-score = 0
+score = 5210
 lives = 3
 game = False
-ghostpoint = 80
+ghostpoint = 200
 cankill = False
