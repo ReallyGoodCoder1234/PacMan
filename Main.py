@@ -233,7 +233,7 @@ while running:
             pac_man.kill_pacman(all_ghosts, screen, ghost_manager)
             screen.blit(pac_man.surf,pac_man.rect)
         if GLOBABAL.lives > 0:
-            score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
+            score_text = text_font.render(str(GLOBABAL.score), True, (255,255,255), (203,197,198))
             score_text_rect = score_text.get_rect()
             score_text_rect.center = (280, 10)
             screen.blit(score_text, score_text_rect)
@@ -246,10 +246,14 @@ while running:
         
 
         if GLOBABAL.lives == 0:
-            game_text = text_font.render("GAME OVER", True, (0,0,0), (0,255,0))
+            game_text = big_font.render("GAME OVER", True, (255,255,255), (203,197,198))
             game_text_rect = game_text.get_rect()
             game_text_rect.center = (280, 310)
             screen.blit(game_text, game_text_rect)
+            game_text1 = text_font.render("The robots have won...", True, (255,255,255), (203,197,198))
+            game_text1_rect = game_text.get_rect()
+            game_text1_rect.center = (300, 380)
+            screen.blit(game_text1, game_text1_rect)
             MapC.pellets.empty()
             MapC.walls.empty()
             MapC.powers.empty()
