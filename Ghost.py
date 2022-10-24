@@ -61,7 +61,6 @@ class Ghost(pygame.sprite.Sprite):
 
         if self.hasImage:
             image = "./Assets/Sprites/Poses/" + self.directionImage[int(self.direction)] + ".png"
-            print("Bruhv")
             self.surf = pygame.image.load(image).convert_alpha()
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         else:

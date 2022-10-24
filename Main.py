@@ -204,6 +204,7 @@ while running:
         pygame.display.set_caption('Credits')
 
     elif (screenType == ScreenType.Play):
+
         for spr in pac_man.map.walls:
             screen.blit(spr.surf, spr.rect)
         pac_man.map.walls.update()
@@ -221,7 +222,7 @@ while running:
         all_ghosts.update()
         if pac_man.killed == False:
             pac_man.move_pacman()
-            pac_man.kill_pacman(all_ghosts, screen)
+            pac_man.kill_pacman(all_ghosts, screen, ghost_manager)
             screen.blit(pac_man.surf,pac_man.rect)
         if GLOBABAL.lives > 0:
             score_text = text_font.render(str(GLOBABAL.score), True, (0,0,0), (0,255,0))
@@ -234,6 +235,7 @@ while running:
                 GLOBABAL.cankill = False
                 for x in all_ghosts:
                     x.hasImage = True
+        
 
         if GLOBABAL.lives == 0:
             game_text = text_font.render("GAME OVER", True, (0,0,0), (0,255,0))

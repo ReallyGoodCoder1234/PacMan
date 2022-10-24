@@ -28,7 +28,8 @@ class Pac_man(pygame.sprite.Sprite):
         self.CONTINUE2 = False
         self.CONTINUE3 = False
 
-    def death_anime(self, s):
+    def death_anime(self, s, ghosts):
+        ghosts.ghosts.empty()
         self.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/spr_pacdeath_0.png").convert_alpha()
         s.blit(self.surf, self.rect)
         pygame.display.update()
@@ -120,13 +121,13 @@ class Pac_man(pygame.sprite.Sprite):
         if self.direction == "down":
             self.pac_down(5)
 
-    def kill_pacman(self,ghosts, s):
+    def kill_pacman(self, ghosts, s, ghost):
         if GLOBABAL.cankill == False:
             for x in ghosts:
                 if self.rect.colliderect(x) == True:
                     self.CONTINUE1 = True
                     pygame.mixer.Sound.play(self.deathSound)
-                    self.death_anime(s)
+                    self.death_anime(s, ghost)
                     self.killed = True
                     GLOBABAL.lives -= 1
         else:
