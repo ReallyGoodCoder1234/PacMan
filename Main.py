@@ -77,6 +77,10 @@ def escape():
     global screenType, running
     screenType = ScreenType.Main
 
+def back():
+    global screenType, running
+    screenType = ScreenType.Main
+
 def draw_background(pic,sw,sh):
     background = pygame.image.load(pic).convert_alpha()
     background_rect = background.get_rect()
@@ -89,6 +93,7 @@ credits_button = Button('Credits',200,40,(50,455),6, credits)
 how_button = Button('How To Play',200,40,(300,530),6, how)
 play_button = Button('Play',200,40,(300,455),6, play)
 escape_button = Button('Back',200,40,(0,0),6, escape)
+back_button = Button('Back',200,40,(50,530),6, back)
 
 # Backgrounds
 main_menu_background = pygame.transform.scale2x(pygame.image.load("./Assets/Levels_and_backgrounds/Main_menu_backgound.png"))
@@ -245,7 +250,8 @@ while running:
                 for x in all_ghosts:
                     x.hasImage = True
         
-        if GLOBABAL.score == 5220:
+        if GLOBABAL.score >= 6567:
+            screen.fill((0,0,0))
             game_text = game_font.render("VICTORY IS SECURED", True, (255,255,255), (203,197,198))
             game_text_rect = game_text.get_rect()
             game_text_rect.center = (280, 310)
@@ -262,7 +268,7 @@ while running:
             MapC.walls.empty()
             MapC.powers.empty()
             all_ghosts.empty()
-            quit_button.draw(screen)
+            back_button.draw(screen)
         elif GLOBABAL.lives == 0:
             game_text = big_font.render("GAME OVER", True, (255,255,255), (203,197,198))
             game_text_rect = game_text.get_rect()
