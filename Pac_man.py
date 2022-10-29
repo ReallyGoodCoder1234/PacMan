@@ -136,6 +136,7 @@ class Pac_man(pygame.sprite.Sprite):
                     x.kill()
                     GLOBABAL.score += GLOBABAL.ghostpoint
                     GLOBABAL.ghostpoint += GLOBABAL.ghostpoint
+                    GLOBABAL.DA = True
                     
 
 

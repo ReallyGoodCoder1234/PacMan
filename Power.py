@@ -3,7 +3,7 @@ import pygame
 class Power(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super(Power, self).__init__()
-        image = "./Assets/Levels_and_backgrounds/Power_Pellet.png"
+        image = "./Assets/Levels_and_backgrounds/Robot1Head02.png"
         self.surf = pygame.image.load(image).convert_alpha()
         self.x = x
         self.y = y
@@ -15,5 +15,5 @@ class Power(pygame.sprite.Sprite):
         group.remove_internal(self)
 
     def update(self):
-        image = "./Assets/Levels_and_backgrounds/Power_Pellet.png"
+        image = "./Assets/Levels_and_backgrounds/Robot1Head02.png"
         self.surf = pygame.image.load(image).convert_alpha()
