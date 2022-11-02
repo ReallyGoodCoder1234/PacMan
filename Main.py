@@ -11,6 +11,7 @@ from Pac_man import Pac_man
 from ScreenType import ScreenType
 from GhostManager import GhostManager
 from Map import MapCreator
+from DeathSirCodealot import SirCodealot
 
 
 
@@ -85,7 +86,6 @@ def back():
 def draw_background(pic,sw,sh):
     background = pygame.image.load(pic).convert_alpha()
     background_rect = background.get_rect()
-    background = pygame.transform.scale(background,(sw,sh))
     screen.blit(background,(0,0))
 
 # Buttons
@@ -229,6 +229,7 @@ while running:
     elif (screenType == ScreenType.Play):
 
         if GLOBABAL.paused == False:
+            pygame.display.set_caption("Play")
             for spr in pac_man.map.walls:
                 screen.blit(spr.surf, spr.rect)
             pac_man.map.walls.update()
@@ -246,7 +247,14 @@ while running:
             all_ghosts.update()
             if pac_man.killed == False:
                 pac_man.move_pacman()
-                pac_man.kill_pacman(all_ghosts, screen, ghost_manager)
+                if pac_man.kill_pacman(all_ghosts, screen, ghost_manager) == True:
+                    #Sir Codealot Creation
+                    code = SirCodealot(sh, sw)
+                    screen.fill((0,0,0))
+                    screen.blit(code.surf, code.rect)
+                    pygame.display.update()
+                    pygame.time.wait(2500)
+                    code.kill()
                 screen.blit(pac_man.surf,pac_man.rect)
             if GLOBABAL.lives > 0:
                 score_text = text_font.render(str(GLOBABAL.score), True, (255,255,255), (203,197,198))
@@ -330,6 +338,7 @@ while running:
             screen.blit(pause_text, pause_text_rect)
             escape_button.draw(screen)
             pygame.display.set_caption("PAUSED")
+            
 
             
 

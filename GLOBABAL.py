@@ -4,4 +4,3 @@ game = False
 ghostpoint = 200
 cankill = False
 paused = False
-DA = False

@@ -45,7 +45,7 @@ class Pac_man(pygame.sprite.Sprite):
         self.surf = pygame.image.load("./Assets/Sprites/Pac_mans/pac man death/Screen Shot 2022-06-05 at 8.02.40 pm.png").convert_alpha()
         s.blit(self.surf, self.rect)
         pygame.display.update()
-        pygame.time.wait(2000)
+        pygame.time.wait(1000)
 
     def eat(self):
         if len(pygame.sprite.spritecollide(self, self.map.pellets, True)) > 0:
@@ -130,13 +130,14 @@ class Pac_man(pygame.sprite.Sprite):
                     self.death_anime(s, ghost)
                     self.killed = True
                     GLOBABAL.lives -= 1
+                    return True
+
         else:
             for x in ghosts:
                 if self.rect.colliderect(x) == True:
                     x.kill()
                     GLOBABAL.score += GLOBABAL.ghostpoint
                     GLOBABAL.ghostpoint += GLOBABAL.ghostpoint
-                    GLOBABAL.DA = True
                     
 
 
