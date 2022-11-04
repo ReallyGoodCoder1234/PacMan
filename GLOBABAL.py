@@ -1,5 +1,6 @@
 score = 0
 lives = 3
 game = False
-ghostpoint = 80
+ghostpoint = 200
 cankill = False
+paused = False

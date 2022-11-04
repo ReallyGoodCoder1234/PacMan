@@ -5,17 +5,16 @@ import GLOBABAL
 
 class Ghost(pygame.sprite.Sprite):
     directions = [Direction.Forward, Direction.Backward, Direction.Up, Direction.Down]
-    directionImage = ["right", "left", "forward", "forward"]
+    directionImage = ["right", "left", "forward", "back"]
     colorKey = (255, 255, 255)
     hasImage = True
 
-    def __init__(self, name, pos, maxHeight, maxWidth, map):
-        self.name = name
+    def __init__(self, pos, maxHeight, maxWidth, map):
         self.maxHeight = maxHeight
         self.maxWidth = maxWidth
         super(Ghost, self).__init__()
         self.direction = random.choice(self.directions)
-        image = "./Assets/Sprites/Ghosts/" + self.name + "/" + self.name + "_" + self.directionImage[int(self.direction)] + ".png"
+        image = "./Assets/Sprites/Poses/right.png"
         self.surf = pygame.image.load(image).convert_alpha()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(
@@ -61,7 +60,7 @@ class Ghost(pygame.sprite.Sprite):
             self.direction = Direction.Up
 
         if self.hasImage:
-            image = "./Assets/Sprites/Ghosts/" + self.name + "/" + self.name + "_" + self.directionImage[int(self.direction)] + ".png"
+            image = "./Assets/Sprites/Poses/" + self.directionImage[int(self.direction)] + ".png"
             self.surf = pygame.image.load(image).convert_alpha()
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         else:
